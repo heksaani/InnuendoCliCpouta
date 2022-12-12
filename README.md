@@ -1,2 +1,2 @@
 
-# Testing Innuendo platform for different species.
+# Testing InnuendoCLI platform for different species.
