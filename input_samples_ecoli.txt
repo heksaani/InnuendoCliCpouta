@@ -1,0 +1,5 @@
+pipelines	sample_ids	runids	users	input_files
+ecoli	 FIXT-316_S7_L001	ecoli_123	cloud-user	  FIXT-316_S7_L001_1.fastq.gz
+ecoli	 FIXT-316_S7_L001	ecoli_123	cloud-user	  FIXT-316_S7_L001_2.fastq.gz
+ecoli	FIAR-847_S5_L001	ecoli_123	cloud-user	FIAR-847_S5_L001_1.fastq.gz
+ecoli	FIAR-847_S5_L001	ecoli_123	cloud-user	FIAR-847_S5_L001_2.fastq.gz

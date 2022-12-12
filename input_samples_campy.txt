@@ -1,0 +1,5 @@
+pipelines	sample_ids	runids	users	input_files
+cjejuni  xxx     campy_123     cloud-user       131428S4L001_R1.fastq.gz
+cjejuni  xxx     campy_123     cloud-user       131428S4L001_R2.fastq.gz
+cjejuni  xxx     campy_123     cloud-user       131469S9L001_R1.fastq.gz
+cjejuni  xxx     campy_123     cloud-user       131469S9L001_R2.fastq.gz
