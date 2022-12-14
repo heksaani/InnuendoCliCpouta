@@ -28,10 +28,11 @@ nohup bash launch_pipeline_selectedsample.sh input_samples_ecoli.txt > test_ecol
 
 # view the progress of jobs
 
-contrl + c # to get back to the temrinal
+contrl + c # to get back to the terminal
 vi/vim/nano test_ecoli  # use your favourite edditor to see if job has started
 
-# You can also check the real progress of batch jobs by going in directory where job is running
+# You can also check the real progress of batch jobs by going into directory where job is running
+# you need to know: pipeline-runid  specific to your run.
 # runid : you can find it in your input template file
 # pipeline: you can find it in the input template file
 
