@@ -1,7 +1,7 @@
 
 # Testing workflows on InnuendoCLI platform for different species.
 
-## Launch workflow for ecoli species
+## Launch workflows for ecoli species
 
 Things to remember before launching pipeline
 
@@ -34,7 +34,7 @@ cd /mnt/innuendo2_testing/jobs/your-user-name/runid/nextflow_log.txt
 
 # viewing reports file 
 
-cd cd /mnt/innuendo2_testing/jobs/your-user-name/runid-of-your-samples/reports
+cd /mnt/innuendo2_testing/jobs/your-user-name/runid-of-your-samples/reports
 
 
 
