@@ -5,8 +5,8 @@
 
 Things to remember before launching workflows:
 
-- You have downloaded samples before lauching workflows
-- You have edited input template file with correct username/pipeline name/samples etc
+- You have downloaded samples to dedicated directory (/mnt/innuendo2_testing/rawdata/your-user-name/incoming) before lauching workflows
+- You have edited input template file for workflow launching script with correct username/pipeline name/samples etc
 
 
 **Usage:**
