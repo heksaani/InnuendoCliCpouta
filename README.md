@@ -1,15 +1,15 @@
 
-# Testing workflows on InnuendoCLI platform for different species.
+# Launching and testing workflows on InnuendoCLI platform for different species.
 
-## Launch workflows for ecoli species
+## Launch workflows for Ecoli species
 
-Things to remember before launching pipeline
+Things to note before launching workflow:
 
-- Make sure that you have downloaded samples before lauching pipelines
-- You have replaced your user name and samples as in samples files
+- You have downloaded samples before lauching workflows
+- You have edit the inpput files with correct username/pipeline name/samples
 
 
-Usage:
+**Usage:**
 
 Clone Innuendo pipeline scripts in this Github to any folder on Innuendo2 machine on cPouta  
 
