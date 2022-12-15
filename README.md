@@ -37,7 +37,7 @@ vi/vim/nano test_ecoli  # use your favourite edditor to see if job has started
 # runid : you can find it in your input template file
 
 
-cd /mnt/innuendo2_testing/jobs/your-user-name/pipeline-runid 
+cd /mnt/innuendo2_testing/jobs/your-user-name/runid 
 vi/vim/nano nextflow_log.txt
 
 # view reports file 
