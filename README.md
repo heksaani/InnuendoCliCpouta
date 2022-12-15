@@ -4,21 +4,21 @@
 
 ## Launch workflows for Ecoli species
 
-Things to remember before launching workflows:
+Please make sure that you have done the following preparation before launching workflows:
 
-- You have downloaded samples to dedicated directory (/mnt/innuendo2_testing/rawdata/your-user-name/incoming) before lauching workflows
-- You have edited input template file for workflow launching script with correct username/pipeline name/samples etc (For now you can give any random *runid* but in production it will be created automatically) 
+- You have downloaded samples to a dedicated directory (/mnt/innuendo2_testing/rawdata/your-user-name/incoming) on Innuendo machine
+- You have edited input template file for worklfows launching script with correct username/pipeline name/samples etc (For now you can give any random *runid* but in production it will be created automatically; possible pipeline name options t the moment are: cjejuni, ecoli, lmonocytogenes, senterica  and yenterocolitica ) 
 
 
 **Usage:**
 
-Clone Innuendo pipeline scripts in this GitHub to any folder on Innuendo2 machine on cPouta  
+Clone Innuendo pipeline scripts in this GitHub to a folder (e.g, /mnt/innuendo2_testing/demo_environment/your-user-name) on Innuendo2 machine. 
 
 ```bash
-# Let's run all these tests by all users in some dedicated folder structure
+
 cd  /mnt/innuendo2_testing/demo_environment 
 
-# Use your actual name to create a directory (this needs to be done only once) and use this folder for launching your jobs
+# create a directory with your user-name (this needs to be done only once)
 mkdir your-user-name  && cd your-user-name 
 
 # clone workflows launching scripts from GitHub if you don't have them already
