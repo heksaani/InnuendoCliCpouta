@@ -7,7 +7,7 @@
 Things to remember before launching workflows:
 
 - You have downloaded samples to dedicated directory (/mnt/innuendo2_testing/rawdata/your-user-name/incoming) before lauching workflows
-- You have edited input template file for workflow launching script with correct username/pipeline name/samples etc
+- You have edited input template file for workflow launching script with correct username/pipeline name/samples etc (For now you can give any random *runid* but in production it will be created automatically) 
 
 
 **Usage:**
@@ -30,7 +30,7 @@ nohup bash launch_pipeline_selectedsample.sh input_samples_ecoli.txt > test_ecol
 # view the progress of jobs
 
 contrl + c # to get back to the terminal
-vi/vim/nano test_ecoli  # use your favourite edditor to see if job has started
+vi/vim/nano test_ecoli  # use your favourite editor to see if job has started
 
 # You can also check the real progress of batch jobs by going into directory where job is running
 # you need to know runid  specific to your run.
