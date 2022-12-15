@@ -44,4 +44,4 @@ cd reports
 
 ## Things to test in this workflows
 - are you able to run workflows successfully?  if workflows are failed for some reason, document all those cases or raise some issue in this GitHub repository
-- are you able to generate reports? if reports are failed, please specify the error you ahve witnessed.
+- are you able to generate reports? if reports are failed, please specify the error you have witnessed.
