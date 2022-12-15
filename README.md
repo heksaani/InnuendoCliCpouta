@@ -33,9 +33,9 @@ contrl + c # to get back to the terminal
 vi/vim/nano test_ecoli  # use your favourite edditor to see if job has started
 
 # You can also check the real progress of batch jobs by going into directory where job is running
-# you need to know: pipeline-runid  specific to your run.
+# you need to know runid  specific to your run.
 # runid : you can find it in your input template file
-# pipeline: you can find it in the input template file
+
 
 cd /mnt/innuendo2_testing/jobs/your-user-name/pipeline-runid 
 vi/vim/nano nextflow_log.txt
