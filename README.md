@@ -12,9 +12,9 @@ Please make sure that you have done the following preparation before launching w
 
 **Usage:**
 
-Clone Innuendo pipeline scripts in this GitHub to a folder (e.g, /mnt/innuendo2_testing/demo_environment/your-user-name) on Innuendo2 machine. 
-
 ```bash
+
+# Clone Innuendo pipeline scripts in this GitHub to a folder (e.g, /mnt/innuendo2_testing/demo_environment/your-user-name) on Innuendo2 machine. 
 
 cd  /mnt/innuendo2_testing/demo_environment 
 
