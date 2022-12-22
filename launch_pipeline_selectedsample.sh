@@ -4,6 +4,8 @@
 
 # clean: blank spaces to have tab delimited 
 sed 's/[[:blank:]]\+/\t/g' "$1" > "$1"_clean
+sed -i "s/\r//g" "$1"_clean
+
 infile="$1"_clean
 TAB=$(printf "\t")
 while IFS=$TAB read pipelines       sample_ids      runids  users   input_files
@@ -35,7 +37,7 @@ else
    
 fi
 
-done < $infile
+done < <(grep "" $infile)
 
 
 
