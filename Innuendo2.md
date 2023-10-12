@@ -1,15 +1,6 @@
-# Updating recent features of INNUca workflow inside [INNUENDO platform](https://innuendo.readthedocs.io/en/latest/index.html)
-This documentation helps update the existing INNUca workflow  inside INNUENDO Platform with new features as available in [INNUca] (https://github.com/B-UMMI/INNUca) 4.2 version. Recent version of INNUca (v4.2) allows the following:
-- Searching of [krakenDB] (https://ccb.jhu.edu/software/kraken2/) (i.e., minikraken2_v1_8GB) for taxonomic information both at read  (using PE reads in fastq files as input) and assembly level (using fasta file as input, generated from tools such as  pilon)
-- Obtaining insertsize distribution (i.e., distribution of insert lengths) of reads
- 
-Kraken2 and Insertsize modules of INNUca are implemented as [FlowCraft](https://github.com/assemblerflow/flowcraft) components inside INNUENDO platform.  Additionally, whole INNUca v4.2 workflow is also made available for admin's usage to facilitate running the workflow with  overriding parameters as and when needed. 
-Although this docuemntation is more about updating new features of INNUca workflow,  similar approach can be used to update any Nextflow tags inside  INNUENDO platform.
+# Innuendo Platform
 
-
-INNUENDO platform uses FlowCraft to build pipelines based on available protocols. So it is required to add new features of INNUca as components of Flowcraft to build on-the-fly custom-made Nextflow (workflow manager that enables scalable and reproducible scientific workflows using software containers)  workflows based on user defined inputs. INNUENDO also uses FlowCraft webapp interface for reporting and visualisations of different procesess of workflow. 
-
-Entire process of updating INNUENDO platform with new features of INNUca involves editing (or even writing) several scripts inside the platform. Main steps (not necessarily in the same order) are described below:
+INNUENDO platform uses FlowCraft to build pipelines based on available protocols. New modules should be added as components of Flowcraft to build custom-made Nextflow pieplines:
 
 - [Modify INNUENDO platform recipe file](#modify-innuendo-platform-recipe-file)
 - [Build singularity image for INNUca](#build-singularity-image-of-innuca)
