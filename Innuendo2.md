@@ -11,8 +11,6 @@ INNUENDO platform uses FlowCraft to build pipelines based on available protocols
 
 Entire process of updating INNUENDO platform with new features of INNUca involves editing (or even writing) several scripts inside the platform. Main steps (not necessarily in the same order) are described below:
 
-- [Add newly defined Nextflow/Flowcraft tags inside the configuration file of INNUENDO front-end server](#add-newly-defined-nextflowflowcraft-tags-inside-the-configuration-file-of-innuendo-front-end-server)
-- [Update new Nextflow tags inside the configuration file of INNUENDO process controller](#update-new-nextflow-tags-inside-the-configuration-file-of-innuendo-process-controller)
 - [Modify INNUENDO platform recipe file](#modify-innuendo-platform-recipe-file)
 - [Build singularity image for INNUca](#build-singularity-image-of-innuca)
 - [Modify the configuration file of nextflow (nextflow.config) to add e.g., runOptions and other  options if necessary](#modify-the-configuration-file-of-nextflow-nextflowconfig-to-add-eg-runoptions-and-other-options-if-necessary)
@@ -21,6 +19,8 @@ Entire process of updating INNUENDO platform with new features of INNUca involve
 - [Write scripts  for generating reports from each process](#write-scripts-for-generating-reports-from-each-process)
 - [Reporting and visualisation of results for new Nextflow process](#reporting-and-visualisation-of-results-for-new-nextflow-process)
 - [Health check for newly added Nextflow tags and configurations](#health-check-for-newly-added-nextflow-tags-and-configurations)
+- [Nextflow Tower for InnuendoCLI](#Nextflow-tower-for-innuendoCLI)
+- [Accessing grapetree for visualisation](#accessing-grapetree-for-visualisation)
 - [Kraken2 Database Updated](#kraken2-database-updated)
 - [PubMLST database update](#pubMLST-database-update)
 - [Additional quality checks for Chewbbaca](#additional-quality-checks-for-chewbbaca)
@@ -30,85 +30,6 @@ Entire process of updating INNUENDO platform with new features of INNUca involve
 - [Trouble shooting](#trouble-shooting)
 
 ----
-## Add newly defined Nextflow/Flowcraft tags inside the configuration file of INNUENDO front-end server
-
-
-Edit NEXTFLOW_TAGs section in the configuration file (e.g., config_frontend.py in docker-compose version) of front-end  server  to reflect
-new  tags (e.g., "kraken2_innu", "kraken2fasta_innu", "insertsize_innu" and "innuca_whole" are marked as examples here) as shown below:
-
-```
-
-NEXTFLOW_TAGS = [
-    "reads_download",
-    "seq_typing",
-    "patho_typing",
-    "integrity_coverage",
-    "fastqc_trimmomatic",
-    "true_coverage",
-    "fastqc",
-    "check_coverage",
-    "skesa",
-    "spades",
-    "process_skesa",
-    "process_spades",
-    "assembly_mapping",
-    "pilon",
-    "mlst",
-    "abricate",
-    "chewbbaca",
-    "sistr",
-    "trimmomatic",
-    "kraken2_innu",
-    "kraken2fasta_innu",
-    "insertsize_innu",
-    "innuca_whole",
-    # "prokka",
-] 
-
-```
-Then these new Nextflow tags would appear in INNUENDO GUI (i.e., inside admin tool -> protocols -> Nextflow Tag). **Please note** that it may require restarting of front-end server in order to appear in  GUI.
-
-----
-## Update new Nextflow tags inside the configuration file of INNUENDO process controller 
-
-The configuration file of INNUENDO process controller (i.e., /Controller/INNUENDO_PROCESS_CONTROLLER/config.py in docker-compose version) should contain information about nextflow tags and their resources specification  as shown below:
-
-```
-# Specific process resources specifications
-NEXTFLOW_RESOURCES = {
-    "reads_download": {
-        "memory": r"\'2GB\'",
-        "cpus": "2"
-    },
-   
-    .
-    .
-    .
-    
-"kraken2_innu": {
-        "memory": r"\'2GB\'",
-        "cpus": "1"
-    },
-   "kraken2fasta_innu": {
-        "memory": r"\'2GB\'",
-        "cpus": "1"
-    },
- "insertsize_innu": {
-        "memory": r"\'2GB\'",
-        "cpus": "1"
-    },
- "insertsize_innu": {
-        "memory": r"\'2GB\'",
-        "cpus": "1"
-      },
- "innuca_whole": {
-        "memory": r"\'2GB\'",
-        "cpus": "1"
-    },
-    
-```
-
-Above information is necessary while building Nextflow pipeline  in the process controller when user submits  a workflow from GUI.
 
 ## Modify INNUENDO platform recipe file 
 
@@ -191,7 +112,7 @@ sudo singularity build innuca.simg deffile
 
 ## Modify the configuration file of nextflow (nextflow.config) to add e.g., runOptions and other  options if necessary
 
-Nextflow configuration file (/Controller/flowcraft/flowcraft/nextflow.config) can be configured for options such as cacheDir and runOptions as shown below:
+Nextflow configuration file (nextflow.config) can be configured for options such as cacheDir and runOptions as shown below:
 
 ```
 you can dd with runoptions (---bind /path   as below:
@@ -344,30 +265,10 @@ class Kraken2_innu(Process):
  
  ```
 *** please note *** that these class definitions can be added directly (instaead overriding the file) inside metagenomics.py file of INNUENDO platform in the production version to avoid loosing the existing class definitions. 
-## Write scripts for generating reports from each process
 
-Scripts for generationg report for new each process are written in python and are added here in flowcraft folders (inside "../flowcraft/templates/)
 
-```
- yes | cp *_report.py -rf /Controller/flowcraft/build/lib/flowcraft/templates/
- yes | cp *_report.py -rf /Controller/flowcraft/flowcraft/templates/
- yes | cp *_report.py  -rf /usr/lib/python3.6/site-packages/flowcraft-1.4.0-py3.6.egg/flowcraft/templates/
- 
- ```
+## Nextflow Tower for InnuendoCLI
 
-and warnings cane be generated for each process by providing the content o "value" field inside the json file as shown below (should be inside the above *_report.py files):
-
-```
-
-    json_dic["warnings"] = [{
-               "sample": sample_id,
-               "table": "qc",
-               "value": []
-              }]
-    json_dic["warnings"][0]["value"].append("fail")
-    json_report.write(json.dumps(json_dic, separators=(',', ':')))
-
-```
 
 ## Kraken2 Database Updated
 
@@ -386,12 +287,25 @@ scp  -i /path/of/prvate/key *.xlsx Innuendo_user@195.148.22.5:/path/of/workdir/r
 scp  -i /path/of/prvate/key *.tab Innuendo_user@195.148.22.5:/path/of/workdir/reports .
 ```
 
-Combined reports
-Typing reports
-Sample reports
-![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/c16eefcf-d510-4318-b274-ec8a89d36250)
+Update on combine reports
+Update on AMR reports
+Update on sample reports
+Update on logs reports
+Update on typing reports
+
+
 
 ## Accessing grapetree for visualisation
+
+Grapetree version 2.2.0
+Installed on innuendo2 virtual machine 
+Type the following command: grapetree
+Access the tool here: http://195.148.22.5:5000/
+
+Reference:
+Zou et al., GrapeTree: visualization of core genomic relationships among 100,000 bacterial pathogens, Genome Res. 2018 Sep; 28(9): 1395–1404
+
+
 
 ## PubMLST database update
 Current PubMLST version in Innuendo 2.0 is based on PubMLST db available on github: https://github.com/tseeman/mlst
@@ -483,6 +397,13 @@ Solution: Databases  are taken out of container and placed on scratch drive
 3. True coverage failures 
 true coverage tool  fails when there is no information exist for some specific species (e.g., Escherichia albertii ?)
 Now: workflow now continues, skipping the failed samples.
-![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/0517f441-a64a-4fd8-88f5-29a476972e3c)
+4. Main reason for QC failures in e-coli samples (based on recent test experiments on Mahti):  
+Per sequence GC content: FAIL (Main reason)
+Per base N content:WARN
+What kind of relaxation can we give for “Per sequence GC content” parameter?
+(Reminder) How would  ’Per sequence GC content’ parameter results in “fail/warning” status?
+Warning :A warning is raised if the sum of the deviations from the normal distribution represents more than 15% of the reads. 
+Failure: This module will indicate a failure if the sum of the deviations from the normal distribution represents more than 30% of the reads. 
+![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/386aeb0b-1dc7-4dc3-aab4-f415c42f7c55)
 
 
