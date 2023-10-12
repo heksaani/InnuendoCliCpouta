@@ -21,8 +21,12 @@ Entire process of updating INNUENDO platform with new features of INNUca involve
 - [Write scripts  for generating reports from each process](#write-scripts-for-generating-reports-from-each-process)
 - [Reporting and visualisation of results for new Nextflow process](#reporting-and-visualisation-of-results-for-new-nextflow-process)
 - [Health check for newly added Nextflow tags and configurations](#health-check-for-newly-added-nextflow-tags-and-configurations)
-- [Build species-specific workflows based on available protocols](#build-species-specific-workflows-based-on-available-protocols)
-- [INNUca 4.2 workflow (admin version)](#innuca-42-workflow-admin-version)
+- [Kraken2 Database Updated](#kraken2-database-updated)
+- [PubMLST database update](#pubMLST-database-update)
+- [Additional quality checks for Chewbbaca](#additional-quality-checks-for-chewbbaca)
+- [Viewing nextflow results](#viewing-nextflow-results)
+- [ALLAS tools in Innunedo2 machine](#ALLAS-tools-in-innunedo2-machine)
+- [Building flowcraft pipelines)](#testing-flowcraft-pipelines)
 - [Trouble shooting](#trouble-shooting)
 
 ----
@@ -365,106 +369,64 @@ and warnings cane be generated for each process by providing the content o "valu
 
 ```
 
-## Reporting and visualisation of results for new Nextflow process
+## Kraken2 Database Updated
 
-Existing javascripts inside Flowcraft webapp are sufficient for the most of reporting purposes. However, if neeeded one needs to modify javascript functions inside  flowcraft webapp. Typically, one needs to modify scripts such as drawings.js, charts.js, Reports.js, Tables.js etc and  rebuild a static main.js file for rendering reports 
+![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/6afbb8e6-41bc-408c-83e7-e45da6bea20d)
+ to
+![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/fe4f1013-7ed5-4a0e-a13b-acfa841878bb)
 
 
-For example, hearderMap inside drawings.js (/FlowCraft_inspect/flowcraft-webapp/flowcraft-webapp/frontend/src/components) is edited for laying out the reports panel as shown below.
+## Viewing nextflow reports locally on your PC
 
-```
-const headerMap =  {
-            "base_n_content": {"icon": <HeartPulseIcon/>, "text": "FastQC"},
-            "Insert_dist": {"icon": <ChartHistogramIcon/>, "text": "Insert Size"},
-            "size_dist": {"icon": <ChartScatterplotHexbinIcon/>, "text": "Contig size"},
+Nextflow reports are available as .xlsx and .tab format. These reports are available inside of 'reports' folder in the workdir of the workflow. One can copy to local workstation and view them locally.
 
-        };
+```bash
 
-```
-similarly modify Reports.js and charts.js files inside "../flowcraft-webapp/flowcraft-webapp/frontend/src" depending on the need for reporting results.
-
-In the case of docker-compose version, the following was done to update modified javascript files (copied directly from host to flowcraft-webapp container )
-
-```
- sudo cp charts.js  /var/lib/docker/overlay2/c7aef98aa4dabfaf1ed039c21b587ee67add8ff4aeb449c58400df340da94cc1/merged/FlowCraft_inspect/flowcraft-webapp/flowcraft-webapp/frontend/src/components/reports/charts.js
- sudo cp tables.js /var/lib/docker/overlay2/c7aef98aa4dabfaf1ed039c21b587ee67add8ff4aeb449c58400df340da94cc1/merged/FlowCraft_inspect/flowcraft-webapp/flowcraft-webapp/frontend/src/components/reports/tables.js
- sudo cp drawer.js /var/lib/docker/overlay2/c7aef98aa4dabfaf1ed039c21b587ee67add8ff4aeb449c58400df340da94cc1/merged/FlowCraft_inspect/flowcraft-webapp/flowcraft-webapp/frontend/src/components/reports/drawer.js
- sudo cp Reports.js /var/lib/docker/overlay2/c7aef98aa4dabfaf1ed039c21b587ee67add8ff4aeb449c58400df340da94cc1/merged/FlowCraft_inspect/flowcraft-webapp/flowcraft-webapp/frontend/src/components/Reports.js
-```
-and then ran the following command: 
-
-```
- yarn run build #  This command will create new main.js file which will be used when report related request comes from process controller.
- *** note *** if needed, one can run "/bin/bash /FlowCraft_inspect/flowcraft-webapp/docker-flowcraft-entrypoint.sh init_all"  to build everything from the scratch in flowcraft webapp 
- ```
- 
-
-One can use different options for reporting for the *** flowcraft report ***  command. Few are shown below: 
-
-```
-flowcraft report  -i pipeline_report/pipeline_report.json  # without url, default it uses main.js file available inside the reports 
-flowcraft report  -i pipeline_report/pipeline_report.json -u http://195.148.30.242/ # it uses main.js defined in the flowcraft-webapp assuming the URL 
+scp  -i /path/of/prvate/key *.xlsx Innuendo_user@195.148.22.5:/path/of/workdir/reports .
+scp  -i /path/of/prvate/key *.tab Innuendo_user@195.148.22.5:/path/of/workdir/reports .
 ```
 
-In order to generate downlodable results in frontend GUI, final_POST.sh file was edited as bewlow ( so 'run_output':'None' in the original file was modified to as 'run_output':'$(pwd)/.command.out'):
-```
-#!/usr/bin/env sh
+Combined reports
+Typing reports
+Sample reports
+![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/c16eefcf-d510-4318-b274-ec8a89d36250)
 
-st=$(cat $(pwd)/.status)
+## Accessing grapetree for visualisation
 
-json="{'project_id':'$1','pipeline_id':'$2','process_id':'$3','run_info':'None','run_output':'$(pwd)/.command.out','warnings':'$(pwd)/.warning','log_file':'$(pwd)/.command.log','status':'$st','type':'output'}"
-
-{
-    curl -H  "Content-Type: application/json" -L -X POST -d \"$json\" $4 > /dev/null
-} || {
-    echo Curl request failed
-}
-
-```
-and be copied to the following location:
-
-```
- yes | cp final_POST.sh   /usr/lib/python3.6/site-packages/flowcraft-1.4.0-py3.6.egg/flowcraft/bin/final_POST.sh
- yes | cp final_POST.sh   /Controller/flowcraft/flowcraft/bin/final_POST.sh
- yes | cp final_POST.sh   /Controller/flowcraft/build/lib/flowcraft/bin/final_POST.sh
- 
- ```
- 
-Above script will send the "".command.out" file to front-end. It requires editing of some front-end scripts to be able to visible as a downlaodable file in front-end GUI
-
-In the file  "./app/resources/jobs/jobs.py" at front-end app, make sure to modify jsonResult object have information from  file_2, file_3, fil_4 (file_3 is missing in original script) as shown below :
-
-```
- queryString = "SELECT (str(?typelabel) as ?label) (str(?file1)"\
-                              " as ?file_1) (str(?file2) as ?file_2) " \
-                              "(str(?file3) as ?file_3) (str(?file4) as " \
-                              "?file_4) (str(?status) as ?statusStr) " \
-                              "WHERE{<"+procStr+"> obo:RO_0002234 ?in. ?in a " \
-                              "?type.?type rdfs:label ?typelabel. OPTIONAL { " \
-                              "?in obo:NGS_0000092 ?file1; obo:NGS_0000093 " \
-                              "?file2; obo:NGS_0000096 ?file4; obo:NGS_0000094"\
-                              " ?file3. } OPTIONAL {?in obo:NGS_0000097 " \
-                              "?status.} }"
-
-                tupleQuery = dbconAg.prepareTupleQuery(QueryLanguage.SPARQL,
-                                                       queryString)
-                result = tupleQuery.evaluate()
-
-                jsonResult = parseAgraphQueryRes(
-                    result, ["statusStr", "file_2","file_3","file_4"])
-                    
-```
-and also, remove text " "style="display:none;" in scripts (related section shown below) files (./app/static/controllers/js_objects/single_project.js or ./app/static/controllers/js_objects/objects_utils.js)   so that output file is displayed in Fron-end GUI
-
-```
-<li class="' + pipelineIdentifier + '&&' + strain_name.replace(/ /g, '_') + "_workflow_" + String(count) + '_' + CURRENT_PROJECT_ID + '&&&" onclick="getProcessesOutputs(this)" style="display:none;"><a>Get Results</a></li>' +
-                            '<li class="' + pipelineIdentifier + '&&' + strain_name.replace(/ /g, '_') + "_workflow_" + String(count) + '_' + CURRENT_PROJECT_ID + '&&&" onclick="getProcessesLog(this)" style="display:none;"><a>Get Run Log</a></li>';
-
-```
-**command hint** to locate the files and locations of certian text in file: grep -rnw ./  -e 'file_3' to find all scripts with file_3 as text or similarly, grep -rnw ./  -e  'Get Results' to spot 'Get Results' 
+## PubMLST database update
+Current PubMLST version in Innuendo 2.0 is based on PubMLST db available on github: https://github.com/tseeman/mlst
+More stable version
+Has recent update (five months old)
+We also have container for MLST database based on  direct download from  PubMLST (https://pubmlst.org/)
+Codes can be unstable if database changes its schemas and paths
 
 
-# Health check for newly added Nextflow tags and configurations 
+
+## ALLAS tools in Innunedo2 machine
+
+
+ - ALLAS tools are installed on Innuendo2 machine
+ - One can copy files  between Innuendo2 machine and ALLAS object storage
+ - Needs a CSC user account
+ - OS Bucket is created (name: innuenedo2  under project_2000767 )
+ - Important container images and other relevant files are copied
+Usage:
+  > source /home/ubuntu/allas-cli-utils/allas_conf -u CSC_username
+  > export PATH=${PATH}:/home/ubuntu/allas-cli-utils
+  >  a-put filename -b innuendo2
+
+
+## Additional quality checks for Chewbbaca
+
+- MLST fillter for chewBBACA  
+  - If the identied species is not the same as MLST-detected species, chewBBACA step is skipped
+
+- ConFindr for contamination checks
+  - Percent contamination value less than 5 %   as a metric for good QC 
+  - Only samples passing the QC would end up in chewBBACA wgMLST scheme
+  - Failed samples will be skipped from running through chewBBACA module
+
+## Building flowcraft pipelines
 
 It is good to check if the newly added tags are properly built before adding them to workflows inside INNUENDO GUI. 
 One can check the information in frontend/process controller machines as below:
@@ -507,84 +469,20 @@ and
   ```
 
 
-## Build species-specific workflows based on available protocols
-
-Workflows inside INNEUNDO platform are built from uniquely defined protocols, which  are the basic unit for running processes. Workflow can then be
-tailered to strains in our projects. Protocol types are defined by NGSOnto and are a way of classifying the available protocols. Each type can have different attributes as below:
-
-- de-novo assembly protocol
-- Sequencing quality control protocol
-- Allele Call Protocol
-- sequencing Protocol
-- DNA Extraction protocol
-- Pathotyping Protocol
-- Sequence cutting protocol
-- mapping assembly protocol
-- Filtering protocol
-- Library Preparation Protocol
-
-
-It is required for the INNUENDO Platform to know which software (including fields) one is
-going to use on that protocol to run it. The available tags (notice new tags are marked here) are: 
-
-- reads_download
-- seq_typing
-- patho_typing
-- integrity_coverage
-- fastqc (fastqc_trimmomatic)
-- true_coverage
-- fastqc_2 (fastqc)
-- integrity_coverage_2 (check_coverage)
-- spades
-- process_mapping
-- pilon
-- mlst
-- sistr
-- chewBBACA
-- abricate
-- kraken2_innu (new tag)
-- kraken2fasta_innu (new tag)
-- insertsize_innu (new tag)
-- innuca_whole (new tag)
-
-In the INNUENDO platform, each of these tags are closely related to the Nextflow Tags chosen. So, to
-have a good agreement between Software and Nextflow Tags, pair them together. 
-Nextflow Tags are the specific names that [FlowCraft](<https://github.com/assemblerflow/flowcraft) requires to build
-Nextflow pipelines based on the available software at the INNUENDO Platform.
-
-
-The protocol name is the identifier that will appear when choosing protocols
-to apply to a workflow. Each protocol name **MUST** be unique. Also, try to
-make a reference for the nextflow tag used in the protocol name in order to
-establish a better organization regarding available protocols.
-
-In front-end GUI, building workflows typically involves following steps:
-
-  - Add protocol for a specie
-  <img src="./kraken2_campy.pdf" alt="Example here" width="738">
-
-  - Build workflows based on available species-specififc protocols
-
-  - Test  the workflows (successful workflow will be added for that specie for running)
-
----
-## INNUca 4.2 workflow (admin version)
-
-INNUca 4.2 admin version is implemented with following parameters:
-
-```
-
-INNUca.py     --fastq  ${fastq_pair[0]} ${fastq_pair[1]}  --speciesExpected "'${species}'"   --genomeSizeExpectedMb 2.1 --threads 8 --fastQCproceed --trimKeepFiles  --krakenProceed --krakenDB ${krakenDB} --insertSizeDist  --pilonKeepFiles --skipTrueCoverage --runKraken --saveExcludedContigs
-
-```
-
-So if necessary, one has to modify parameters of INNUca as needed.
-
-**Some Notes** 
-
-- If "check_coverage" tag is not added as part of the protocol when building a workflows, it is neither  building nor  complaining !!!
-- When adding protocols, add single quotes for parameters
-- All resources are as set in docker-compose version and can be changed to fit in the production environment
-- Some reporting results may depend on browser ( or clean cache as well as edit blocking settings by some sofware)
 
 ## Trouble shooting
+
+1. Many samples fail at fastqc step
+Issue: Many samples have problem in  Fastqc step 
+reason: uk.ac.babraham.FastQC.Sequence.SequenceFormatException: Midline 'GTAGGTTAA:0CTAGCHHHH:AF??GT17832:AFG697ATTGGHHHGT???:AFFFFGGEBCAATGG697ATT7ATCABGG-JG' didn't start with '+'
+
+2. Serotypefinder module when run at scale has run into issues
+Issue: Process handling serotypefinder task hangs and waits forever
+Solution: Databases  are taken out of container and placed on scratch drive
+
+3. True coverage failures 
+true coverage tool  fails when there is no information exist for some specific species (e.g., Escherichia albertii ?)
+Now: workflow now continues, skipping the failed samples.
+![image](https://github.com/yetulaxman/InnuendoCliCpouta/assets/48151266/0517f441-a64a-4fd8-88f5-29a476972e3c)
+
+
