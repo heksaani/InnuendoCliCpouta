@@ -1,0 +1,7 @@
+Bootstrap: docker
+From: flowcraft/patho_typing:0.3.0-1
+
+%files
+typing.config        /NGStools/patho_typing/modules/seq_conf/escherichia_coli/
+typing.fasta       /NGStools/patho_typing/modules/seq_conf/escherichia_coli/
+typing_rules.tab        /NGStools/patho_typing/modules/seq_conf/escherichia_coli/
