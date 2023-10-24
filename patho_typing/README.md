@@ -1,10 +1,10 @@
  ## Main changes made to Patho_typing scheme
 
- In silico pathogenic typing of a sample is based on raw read sequences of genes whose variants are becoming more available and thus patho_tyiping schema needs to be updated to userecently available information. Read more about the path_typing tool [here](https://github.com/B-UMMI/patho_typing)
+ In silico pathogenic typing of a sample is based on raw read sequences of gene(s). More variants of some of the genes as well as new target genes are becoming available and consequnetly patho_tyiping schema needs to be updated. [Read more about the path_typing tool](https://github.com/B-UMMI/patho_typing)
 
  ### Updated typing rules:
-- **STEC, tEPEC and aEPEC**: No update on schema has bee done
-- **ETEC**: 60+ new target genes have been identified. At least one ETEC target and No stx
+- **STEC, tEPEC and aEPEC**: No update on patho_typing rules was done.
+- **ETEC**: There are about 60 new target genes have been identified for ETEC patho_typing. Updated rule for patho_typing is that there should be at least one ETEC target and no stx
 - **EAEC**: New marker gene aggR is added and removed aaiC, aap, aat from old list. Then, EAEC patho_typing is based on "aggR only, NO stx, NO eae"
 - **EIEC**: Removed icsA. added ipaH7.8, ipaH9.8 and ipaD. ETEC patho_typing is based on the presence of at least one from the list:ipaH, ipaH7.8, ipaH9.8, ipaD.
 - **Shigella ST1**: Removed icsA. added ipaH7.8 and ipaH9.8. Patho_typing is based on at least one of ipaH, ipaH7.8, ipaH9.8 AND stx1
