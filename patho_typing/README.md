@@ -11,12 +11,15 @@
 - **STEC-ETEC**: New rule for hybrid patho_typing of STEC-ETEC: At least one stx type with/without eae AND at least one ETEC marker gene
 - **STEC-EAEC**: New rule for hybrid patho_typing of STEC-EAEC: At least one stx type with/without eae AND aggR
 
-Updated typing rules are reflected in "typing_rules.tab".
+Updated typing rules are reflected in the file ""**typing_rules.tab**".
 
-### Managing large variants
+### Managing large variants of genes
 
-Various combinations of 60+ ETEC genes posed some challenge in designing the schema matrix needed for defining ETC pathogenic typing. To minimise number of combinations of all ETEC genes,  ETEC genes were clustered based on their raw read sequence. A representative variant  (preferably, longer one) was selected from each of the five clusters to define pathogeneic typing of ETEC. 
+Various combinations of 60+ ETEC genes posed some challenge in designing the schema matrix needed for defining ETC pathogenic typing. To minimise number of combinations of all ETEC genes,  ETEC genes were clustered based on their raw read sequence. A representative variant  (preferably, longer one) was selected from each of the five clusters to define pathogeneic typing of ETEC.  For the patho_typing of EIEC, if there are more variants, only a variant with large sequence is used.
 
-### Changes in config and fasta files
-- proposed to use changed config settings (#minimum_gene_coverage: 70 (previous value 60)  #minimum_gene_identity: 60 (previous value: 70). Gene_identi value was changed based on the minimum similarity value in the clusters.
-- fasta file is updated.
+### Updates in config and fasta files of Patho_typing tool
+Config settings (file name: typiing.config) in Patho_typing tool was updated as below :
+- minimum_gene_coverage: 70 (previous value 60)
+- minimum_gene_identity: 60 (previous value: 70). Gene_identi value was changed based on the minimum similarity value in the clusters.
+  
+Fasta file (file name: typing.fasta) was updated with the changes in genes as updated in typing rules
