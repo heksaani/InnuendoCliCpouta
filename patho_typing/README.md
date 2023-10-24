@@ -1,6 +1,6 @@
  ## Main changes made to Patho_typing scheme
 
- More and more variants are being detected and thus patho_tyiping needs to be done based on the recently available information.
+ In silico pathogenic typing of a sample is based on raw read sequences of genes whose variants are becoming more available and thus patho_tyiping schema needs to be updated to userecently available information. Read more about the path_typing tool [here](https://github.com/B-UMMI/patho_typing)
 
  ### Updated typing rules:
 - **STEC, tEPEC and aEPEC**: No update on schema has bee done
