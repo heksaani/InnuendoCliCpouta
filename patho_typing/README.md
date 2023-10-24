@@ -23,3 +23,9 @@ Config settings (file name: typiing.config) in Patho_typing tool was updated as 
 - minimum_gene_identity: 60 (previous value: 70). Gene_identi value was changed based on the minimum similarity value in the clusters.
   
 Fasta file (file name: typing.fasta) was updated with the changes in genes as updated in typing rules
+
+### Updated singularity image
+
+New definition file for singularity image was made ( file name: patho_typing.def) and image was built accordingly. 
+
+**PS**: If gene name contains ".", the tool parses it as "_" in the fasta files. Thus gene names in schema file are also named accordingly(e.g., ipaH7.8 -> ipaH7_8) to avoid errors in the analysis.  
