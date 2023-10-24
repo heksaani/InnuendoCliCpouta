@@ -15,7 +15,7 @@ Updated typing rules are reflected in "typing_rules.tab".
 
 ### Managing large variants
 
-Various combinations of 60+ ETEC genes posed some challenge in designing the matrix needed to define each phenotype. We have clustered various ETEC genes and clustered according to their similarity of sequences. We found five clusters and picked one variant (preferably, longer one) from each cluster for ETEC variants.
+Various combinations of 60+ ETEC genes posed some challenge in designing the schema matrix needed for defining ETC pathogenic typing. To minimise number of combinations of all ETEC genes,  ETEC genes were clustered based on their raw read sequence. A representative variant  (preferably, longer one) was selected from each of the five clusters to define pathogeneic typing of ETEC. 
 
 ### Changes in config and fasta files
 - proposed to use changed config settings (#minimum_gene_coverage: 70 (previous value 60)  #minimum_gene_identity: 60 (previous value: 70). Gene_identi value was changed based on the minimum similarity value in the clusters.
