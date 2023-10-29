@@ -46,3 +46,18 @@ Mention feedback in different stages of pipeline
 - Database
 - Reports
 - Visualisation
+- FAQs <br>
+
+**Q1: Log files show that very large numebr of samples are submitted in nextflow job even though very few FASTQ files have been submitted**
+
+ Input FastQ                 : 149289221 <br>
+ Input samples               : 74644610 <br>
+ Reports are found in        : ./reports <br>
+ Results are found in        : ./results <br>
+ Profile                     : incd <br>
+
+
+ **Solution:**
+ 
+   Use quotes ('') to fastq sample path as below:
+   nextflow run pipeline_ecoli.nf --fastq '/mnt/rv_data/lyetukur/jobs/33/data/*_{1,2}.fastq.gz' ....
