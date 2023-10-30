@@ -52,7 +52,7 @@ Mention feedback in different stages of pipeline
 
 
  
-A1: log files would have the following text: <br> 
+**A1**: log files would have the following text: <br> 
 ```
  Input FastQ                 : 149289221 <br>
  Input samples               : 74644610 <br>
@@ -66,7 +66,7 @@ Above error is resulting from not using quotes when giving path to input files. 
 
 **Q2 chewBBACA: file not found: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/singularity_cache2/shared_files/chewbbaca_test_bala/ecoli/test_schema_ecoli_download/ecoli_INNUENDO_wgMLST/temp/INNUENDO_wgMLST-00016261.fasta_result.txt'**
 
-<br> A2: This is due to lack of file permissions to edit *.fasta* files in cheBBACA flat file database.
+<br> **A2**: This is due to lack of file permissions to edit *.fasta* files in cheBBACA flat file database.
 
 **Q3 Analysis of a tool (e.g., reads_serotypefinder) gets stuck and no apparent progress or error was found**
-<br> A3:  More likely a database locking error inside of a container. Try to move the database out of container and use it from a mounted path.
+<br> **A3**:  More likely a database locking error inside of a container. Try to move the database out of container and use it from a mounted path.
