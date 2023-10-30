@@ -69,4 +69,5 @@ Above error is resulting from not using quotes when giving path to input files. 
 <br> **A2**: This is due to lack of file permissions to edit *.fasta* files in cheBBACA flat file database.
 
 **Q3 Analysis of a tool (e.g., reads_serotypefinder) gets stuck and no apparent progress or error was found**
+
 <br> **A3**:  More likely a database locking error inside of a container. Try to move the database out of container and use it from a mounted path.
