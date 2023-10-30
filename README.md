@@ -54,14 +54,14 @@ Mention feedback in different stages of pipeline
  
 **A1**: log files would have the following text: <br> 
 ```
- Input FastQ                 : 149289221 <br>
- Input samples               : 74644610 <br>
- Reports are found in        : ./reports <br>
- Results are found in        : ./results <br>
- Profile                     : incd <br>
+ Input FastQ                 : 149289221 
+ Input samples               : 74644610 
+ Reports are found in        : ./reports 
+ Results are found in        : ./results 
+ Profile                     : incd 
  ....                         ...
 ```
-Above error is resulting from not using quotes when giving path to input files. Make sure to use quotes ('') to fastq sample path as below:
+Above error is a consequnce of not using quotes when giving path to input files. Make sure to use quotes ('') to fastq sample path as below:
  nextflow run pipeline_ecoli.nf --fastq '/mnt/rv_data/lyetukur/jobs/33/data/*_{1,2}.fastq.gz' ....
 
 **Q2 chewBBACA: file not found: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/singularity_cache2/shared_files/chewbbaca_test_bala/ecoli/test_schema_ecoli_download/ecoli_INNUENDO_wgMLST/temp/INNUENDO_wgMLST-00016261.fasta_result.txt'**
