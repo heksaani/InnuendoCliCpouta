@@ -48,10 +48,11 @@ Mention feedback in different stages of pipeline
 - Visualisation
 - Troubleshooting <br>
 
+## Troubleshooting
+
 **Q1: Log files show that very large numebr of samples are submitted in nextflow job even though very few FASTQ files have been submitted**
 
 
- 
 **A1**: log files would have the following text: <br> 
 ```
  Input FastQ                 : 149289221 
@@ -71,3 +72,17 @@ Above error is a consequnce of not using quotes when giving path to input files.
 **Q3 Analysis of a tool (e.g., reads_serotypefinder) gets stuck and no apparent progress or error was found**
 
 <br> **A3**:  More likely a database locking error inside of a container. Try to move the database out of container and use it from a mounted path.
+
+**Q4 How do you stop a running nextflow job on slurm cluster
+
+<br> **A4**: As nextflow job that is running on cluster has several job steps, just cancelling a job step (scancel <job_id>) won't stop the whole nextflow job. One easiest way stop the job is to find the master nextflow process ID (PID) uisng the following command:
+
+```
+cd /path/nextflow/submission/directory/   # move to the directory from where you have submitted job
+lsof .nextflow/cache/**/db/LOCK    # under cache directory ther should be folder name with hash number
+```
+Above command should print  PID  of a running nextflow job among other column fields. Identiy the PID and kill the job as below:
+```
+kill <pid>
+```
+
