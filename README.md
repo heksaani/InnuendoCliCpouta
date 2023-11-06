@@ -73,7 +73,7 @@ Above error is a consequnce of not using quotes when giving path to input files.
 
 <br> **A3**:  More likely a database locking error inside of a container. Try to move the database out of container and use it from a mounted path.
 
-**Q4 How do you stop a running nextflow job on slurm cluster
+**Q4 How do you stop a running nextflow job on slurm cluster**
 
 <br> **A4**: As nextflow job that is running on cluster has several job steps, just cancelling a job step (scancel <job_id>) won't stop the whole nextflow job. One easiest way stop the job is to find the master nextflow process ID (PID) uisng the following command:
 
