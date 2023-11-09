@@ -50,8 +50,8 @@ Mention feedback in different stages of pipeline
 
 ## Troubleshooting
 
-**Q1:Information in log files show that large numebr of samples are submitted in nextflow job despite fewer samples have been submitted**
-**A1**: log files would have the following text: <br> 
+**Q1:Information in log files indicate that the large numebr of samples are submitted as part of  nextflow job despite fewer samples have infact been submitted**
+<br>**A1**: log files would have the following text: <br> 
 ```
 ....
  Input FastQ                 : 149289221 
