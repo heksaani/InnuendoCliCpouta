@@ -65,13 +65,13 @@ Above error is as a consequnce of not using quotes when giving path to input fil
  nextflow run pipeline_ecoli.nf --fastq '/mnt/rv_data/lyetukur/jobs/33/data/*_{1,2}.fastq.gz' ....
 
 
-**Q2. ChewBBACA: file not found: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/singularity_cache2/shared_files/chewbbaca_test_bala/ecoli/test_schema_ecoli_download/ecoli_INNUENDO_wgMLST/temp/INNUENDO_wgMLST-00016261.fasta_result.txt'**
+**Q2: ChewBBACA: file not found: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/singularity_cache2/shared_files/chewbbaca_test_bala/ecoli/test_schema_ecoli_download/ecoli_INNUENDO_wgMLST/temp/INNUENDO_wgMLST-00016261.fasta_result.txt'**
 <br> **A2**: This is due to lack of file permissions to edit *.fasta* files in cheBBACA flat file database.
 
-**Q3 Analysis of a tool (e.g., reads_serotypefinder) gets stuck and no apparent progress or error was found**
+**Q3: Analysis of a tool (e.g., reads_serotypefinder) gets stuck and no apparent progress or error was found**
 <br> **A3**:  More likely a database locking error inside of a container. Try to move the database out of container and use it from a mounted path.
 
-**Q4 How do you stop a running nextflow job on slurm cluster**
+**Q4: How do you stop a running nextflow job on slurm cluster**
 <br> **A4**: As nextflow job that is running on cluster has several job steps, just cancelling a job step (scancel <job_id>) won't stop the whole nextflow job. One easiest way stop the job is to find the master nextflow process ID (PID) uisng the following command:
 
 ```
