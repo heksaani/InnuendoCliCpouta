@@ -17,59 +17,58 @@ Mention feedback in different stages of pipeline
 - **Data folders on Inneundo2 machine**:
   We have a dedicated stiorage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
 
-  ```bash
- # THL users
-  mkdir -p /mnt/rv_data/$USER/ftp 
- # RV users
-  mkdir -p /mnt/THL_data/$USER/ftp
- ```
-And also you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of smaples that you would like to run together.
+   ```bash
+   # THL users
+   mkdir -p /mnt/rv_data/$USER/ftp 
+   # RV users
+   mkdir -p /mnt/THL_data/$USER/ftp
+  ```
+  And also you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of smaples that you would like to run together.
 
-Please create a folder for jobs under your username:
+  Please create a folder for jobs under your username:
+
+   ``` bash
+   # THL users
+   mkdir -p /mnt/rv_data/$USER/jobs
+   # RV users
+   mkdir -p /mnt/THL_data/$USER/jobs
+    ```
+  All jobs that you have submitted will be created under *jobs* folder.
+
+  - **Running workflows**:
+   - Please make sure that you have done the following preparation before launching workflows:
+     - You have downloaded samples to a dedicated directory (/mnt/rv_data/$USER/data or /mnt/thl/$USER/data ) on Innuendo machine
+     - You have edited input template file for worklfows 
+
+ **Usage:**
 
  ```bash
- # THL users
-  mkdir -p /mnt/rv_data/$USER/jobs
- # RV users
- mkdir -p /mnt/THL_data/$USER/jobs
- ```
-All jobs that you have submitted will be created under *jobs* folder.
 
-- **Running workflows**:
-- Please make sure that you have done the following preparation before launching workflows:
+  # Syntax:
+  > nohup bash icli-run -p  -r -f md_example_1.csv > test &
 
-- You have downloaded samples to a dedicated directory (/mnt/rv_data/$USER/data or /mnt/thl/$USER/data ) on Innuendo machine
-- You have edited input template file for worklfows 
+  # Syntax:
+  # icli-run -p -m -r -f metadata.csv
+  #
+  # Options:
+  # -p    Pipeline. Run the pipeline
+  # -d    Duplicate. Run even if sample exists
+  # -m    Metadata. Write metadata to DB
+  # -r    Reports. Write analysis results and reports to DB
+  # -f    Metadata file
+  # view the progress of jobs
 
-**Usage:**
+  contrl + c  # to get back to the linux terminal
+  vi/vim/nano test_ecoli  # use your favourite editor to see if job has started
 
-```bash
+  # You can also check the real progress of batch jobs by going into directory where job is running
+  # you need to know runid (you can find it in your input template file)  specific to your run.
 
-# Syntax:
-> nohup bash icli-run -p  -r -f md_example_1.csv > test &
+  cd /mnt/rv_data/jobs/your-user-name/runid  or cd /mnt/thl/jobs/your-user-name/runid 
+  vi/vim/nano nextflow_log.txt
 
-# Syntax:
-# icli-run -p -m -r -f metadata.csv
-#
-# Options:
-# -p    Pipeline. Run the pipeline
-# -d    Duplicate. Run even if sample exists
-# -m    Metadata. Write metadata to DB
-# -r    Reports. Write analysis results and reports to DB
-# -f    Metadata file
-# view the progress of jobs
-
-contrl + c  # to get back to the linux terminal
-vi/vim/nano test_ecoli  # use your favourite editor to see if job has started
-
-# You can also check the real progress of batch jobs by going into directory where job is running
-# you need to know runid (you can find it in your input template file)  specific to your run.
-
-cd /mnt/rv_data/jobs/your-user-name/runid  or cd /mnt/thl/jobs/your-user-name/runid 
-vi/vim/nano nextflow_log.txt
-
-# view reports file 
-cd reports
+  # view reports file 
+  cd reports
 ```
 
 
@@ -77,9 +76,7 @@ cd reports
 - Database
 - Reports
 - Visualisation
-- Troubleshooting <br>
-
-## Troubleshooting
+- **Troubleshooting**: <br>
 
 **Q1:Information in log files indicate that the large numebr of samples are submitted as part of  nextflow job despite fewer samples have infact been submitted**
 <br>**A1**: log files would have the following text: <br> 
