@@ -69,7 +69,7 @@
  - Specific tools
  - Database
  - Reports
- - Visualisation
+ - **Visualisation**: 
  - **Troubleshooting**: <br>
 
  **Q1: Information in log files indicate that the large numebr of samples are submitted as part of  nextflow job despite fewer samples have infact been submitted**
