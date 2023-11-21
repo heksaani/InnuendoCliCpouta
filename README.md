@@ -69,7 +69,14 @@
  - Specific tools
  - Database
  - Reports
- - **Visualisation**: 
+ - **Visualisation**:
+Grapetree (version 2.2.0) is installed on Innuendo2 machine and can be used for the visualization of allelic profiles.  You can type the following command to start grapetree: 
+
+```bash
+grapetree
+```
+Once the software is started one can access it from here: http://195.148.22.5:5000/
+
  - **Troubleshooting**: <br>
 
  **Q1: Information in log files indicate that the large numebr of samples are submitted as part of  nextflow job despite fewer samples have infact been submitted**
