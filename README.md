@@ -1,7 +1,7 @@
 
 # Testing InnuendoCLI platform for e-coli species
 
-## List of things to do check in this InnuendoCLI platform 
+## List of things to test in this InnuendoCLI platform 
 - **Logging into the innuendo2 machine**:
   Please check that you can login to Innuendo2 machine using SSH key authentication. All those who have shared your public SSH key with us should be able to login to Innuendo machine. In Linux/ macOS, one can use the following command to login:
   ```bash
