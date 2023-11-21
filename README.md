@@ -4,7 +4,39 @@
 
 ## Launch workflows for Ecoli species
 
-Please make sure that you have done the following preparation before launching workflows:
+
+
+## Things to test in this workflows
+Mention feedback in different stages of pipeline
+- **Logging into the innuendo2 machine**:
+  Please check that you can login to Innuendo2 machine using SSH key authentication. All those who have shared your public SSH key with us should be able to login to Innuendo machine. In Linux/ macOS, one can use the following command to login:
+  ```bash
+   ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@195.148.22.5
+  ```
+  You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/)
+- **Data folders on Inneundo2 machine**:
+  We have a dedicated stiorage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
+
+  ```bash
+ # THL users
+  mkdir -p /mnt/rv_data/$USER/ftp 
+ # RV users
+  mkdir -p /mnt/THL_data/$USER/ftp
+ ```
+And also you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of smaples that you would like to run together.
+
+Please create a folder for jobs under your username:
+
+ ```bash
+ # THL users
+  mkdir -p /mnt/rv_data/$USER/jobs
+ # RV users
+ mkdir -p /mnt/THL_data/$USER/jobs
+ ```
+All jobs that you have submitted will be created under *jobs* folder.
+
+- **Running workflows**:
+- Please make sure that you have done the following preparation before launching workflows:
 
 - You have downloaded samples to a dedicated directory (/mnt/rv_data/$USER/data or /mnt/thl/$USER/data ) on Innuendo machine
 - You have edited input template file for worklfows 
@@ -14,15 +46,17 @@ Please make sure that you have done the following preparation before launching w
 ```bash
 
 # Syntax:
-> icli-run -r -m -f metadata.csv
-Options:
- -r    Run the pipeline
- -m    Write metadata to DB
- -f    Metadata file
+> nohup bash icli-run -p  -r -f md_example_1.csv > test &
 
-# To both write the metadata and run the pipeline 
-# specify both -r and -m
-
+# Syntax:
+# icli-run -p -m -r -f metadata.csv
+#
+# Options:
+# -p    Pipeline. Run the pipeline
+# -d    Duplicate. Run even if sample exists
+# -m    Metadata. Write metadata to DB
+# -r    Reports. Write analysis results and reports to DB
+# -f    Metadata file
 # view the progress of jobs
 
 contrl + c  # to get back to the linux terminal
@@ -38,10 +72,7 @@ vi/vim/nano nextflow_log.txt
 cd reports
 ```
 
-## Things to test in this workflows
-Mention feedback in different stages of pipeline
-- Moving data to Inneundo machine
-- Running workflows
+
 - Specific tools
 - Database
 - Reports
