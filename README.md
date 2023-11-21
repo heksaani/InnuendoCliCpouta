@@ -29,6 +29,7 @@
     ```
   All jobs that you have submitted will be created under *jobs* folder.
 
+**Note**: Please don't download any data to home folders.
 - **Running workflows**:
    - Please make sure that you have done the following preparation before launching workflows:
      - You have downloaded samples to a dedicated directory (/mnt/rv_data/$USER/data or /mnt/thl/$USER/data ) on Innuendo machine
