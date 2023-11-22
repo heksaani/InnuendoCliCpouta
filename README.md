@@ -31,10 +31,9 @@
 
    **Note**: All users have home folders (/home/user_name). However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any data to home folders.
  
-- **Launching workflows**:
-   - Please make sure that you have done the following preparation before launching workflows:
-     - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine. You may want to create a batch job-specific folder under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples).
-     - You have created input template file for worklfows: Creation of input template requires some attension from your side. One example is created in the test.csv file in this GitHub folder. Please be familiar with restrictions associated  with different metadata fields. 
+- **Launching workflows**:Please make sure that you have done the following preparation before launching workflows:
+    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine. You may want to create a batch job-specific folder under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples).
+    - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the test.csv file in this GitHub folder. Please be familiar with restrictions associated  with different metadata fields. 
 
    **Usage:**
 
@@ -68,7 +67,7 @@
    cd Final_results
 
   ```
- - **Examine your reports**:
+ - **Examining your reports**:
     Reports are generated once your submitted job is successfully run. Under your own job directory (/mnt/THL_data/$USER/jobs/ or /mnt/rv_data/$USER/jobs), you can see the actual analysis results split into **resulsts** and **reports** folders. The reports folder also contains the following summery files:
    - Innuendo_reports.xlsx
    - combine_samples_reports.tab
@@ -79,7 +78,7 @@
 
  The excel file, Innuendo_reports.xlsx has all other reports as a separate excel sheet.
 
- - **Visualise your allelic profiles using Grapetree**:
+ - **Visualising ChewBBACA allelic profiles using Grapetree**:
   Grapetree (version 2.2.0) is installed on Innuendo2 machine and can be used for the visualization of allelic profiles.  You can type the following command on the termincal of Innuendo2 machine to start grapetree programme: 
 
   ```bash
