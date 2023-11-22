@@ -76,7 +76,7 @@
    - log_reports.tab
    - typing_reports.tab
 
- The excel file, Innuendo_reports.xlsx has all other reports as a separate excel sheet.
+ Please note that the excel file, Innuendo_reports.xlsx has all reports, each one in a separate excel sheet.
 
  - **Visualising ChewBBACA allelic profiles using Grapetree**:
   Grapetree (version 2.2.0) is installed on InnuendoCLI machine and can be used for the visualization of allelic profiles.  You can type the following command on the termincal of InnuendoCLI machine to start grapetree programme: 
