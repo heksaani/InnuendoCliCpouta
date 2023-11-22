@@ -40,11 +40,11 @@
   ```bash
 
    # Syntax for running automated worklfow in the background. After issueing the following command, please use  **contrl + c**  to get back to the linux terminal; 
-   > nohup bash icli-run -p  -r -f test.csv > log.txt &
+   > nohup bash icli-run -p -m  -r -f metadata_example.csv > log.txt &
    # you can monitor the output in the file, log.txt ( use vi/vim/nano log.txt) to check if the job has successfully started.
   
    # Syntax for interactive  usage 
-   # icli-run -p -m -r -f test.csv
+   # icli-run -p -m  -r -f metadata_example.csv
    
    # Options:
    # -p    Pipeline. Run the pipeline
@@ -89,9 +89,9 @@
  As metadata needs to be compiled into metadata database for the in-house generated allelic profiles as well as published data, one can only visualise the raw samples. We have created a tool for searching nearest neighbours and fetching the allelec profiles of the neighbour. You have to create a query file with a sample allelic  profile. You will be able to search the nearest neighbours of the sample as below:
 
 ```bash
-> index_profiles query
+> index_profiles indexquery
 ```
-The above command will produce a file (file name: "query_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be used to generate tree visualisations with GrapeTree software.
+The above command will produce a file (file name: "indexquery_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be used to generate tree visualisations with GrapeTree software.
 
 - **Troubleshooting Guide**: <br>
 
