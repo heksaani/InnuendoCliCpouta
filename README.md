@@ -27,13 +27,13 @@
    # RV users
    mkdir -p /mnt/THL_data/$USER/jobs
     ```
-   Batch jobs can be submitted from your home or /mnt folders.  All jobs that you have submitted will be run under *jobs* folder under your dedicated job folders.
+   Batch jobs can be submitted from your home or /mnt folders.  All jobs that you have submitted will be run under your *jobs* folder.
 
    **Note**: All users have home folders (/home/user_name). However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any data to home folders.
  
 - **Launching workflows**:Please make sure that you have done the following preparation before launching workflows:
-    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine. You may want to create a batch job-specific folder under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples).
-    - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the test.csv file in this GitHub folder. Please be familiar with restrictions associated  with different metadata fields. 
+    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
+    - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the metadata_example.csv file in this GitHub folder. Please be familiar with restrictions associated with different metadata fields. 
 
    **Usage:**
 
