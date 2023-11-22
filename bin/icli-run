@@ -325,7 +325,6 @@ do
     if [ -f "${array[$c]}" ]
     then
       file1_name=$(basename ${array[$c]})      
-      file1_name_abs="${array[$c]}"      
       file1_md5=$(md5sum ${array[$c]} |  cut -d" " -f 1)
       # Check if exists
       file1_id=$(PGPASSWORD=$dbpassword psql -U 'dbuser' -d 'i2' -AXqtc "SELECT read_id FROM reads WHERE file1_filename='${array[$c]}' AND file1_md5='$file1_md5';") 
@@ -349,7 +348,6 @@ do
     if [ -f "${array[$c]}" ]
     then
       file2_name=$(basename ${array[$c]})
-      file2_name_abs="${array[$c]}"
       file2_md5=$(md5sum ${array[$c]} |  cut -d" " -f 1)
       # Check if exists
       file2_id=$(PGPASSWORD=$dbpassword psql -U 'dbuser' -d 'i2' -AXqtc "SELECT read_id FROM reads WHERE file2_filename='${array[$c]}' AND file2_md5='$file2_md5';") 
@@ -459,8 +457,8 @@ do
     sample_name="${array[1]}"
     user_name=$USER
     user_group=$(groups |awk '{print $1}')
-    read_1="$file1_name_abs"
-    read_2="$file2_name_abs"
+    read_1="$(readlink -f ${file1_name})"
+    read_2="$(readlink -f ${file2_name})"
     if [ "$reports" = "true" ]
     then
       write_reports="y"
