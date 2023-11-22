@@ -15,7 +15,7 @@
    # THL users
    mkdir -p /mnt/rv_data/$USER/ftp 
    # RV users
-   mkdir -p /mnt/THL_data/$USER/ftp
+   mkdir -p /mnt/thl_data/$USER/ftp
   ```
   And you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of samples that you would like to run together.
 
@@ -25,7 +25,7 @@
    # THL users
    mkdir -p /mnt/rv_data/$USER/jobs
    # RV users
-   mkdir -p /mnt/THL_data/$USER/jobs
+   mkdir -p /mnt/thl_data/$USER/jobs
     ```
    Batch jobs can be submitted from your home or /mnt folders.  All jobs that you have submitted will be run under your *jobs* folder.
 
@@ -51,7 +51,7 @@ OS Bucket is created (name: innuenedo2  under project_2000767.
   >  a-put filename -b innuendo2
   ```
 - **Launching workflows**:Please make sure that you have done the following preparation before launching workflows:
-    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on InnuendoCLI machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
+    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl_data/user_name/ftp ) on InnuendoCLI machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
     - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the metadata_example.csv file in this GitHub folder. Please be familiar with restrictions associated with different metadata fields. 
 
    **Usage:**
@@ -77,7 +77,7 @@ OS Bucket is created (name: innuenedo2  under project_2000767.
    # You can monitor the real progress of batch jobs by going into directory where job is running
    # you need to know job name (you can find under jobs folder and job name is your metadata file name without .csv extension) 
     
-   cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl/jobs/your-user-name/job_folder
+   cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl_data/jobs/your-user-name/job_folder
    vi/vim/nano nextflow_log.txt
 
    # view reports file 
@@ -87,7 +87,7 @@ OS Bucket is created (name: innuenedo2  under project_2000767.
 
   ```
  - **Examining your reports**:
-    Reports are generated once your submitted job is successfully run. Under your own job directory (/mnt/THL_data/$USER/jobs/ or /mnt/rv_data/$USER/jobs), you can see the actual analysis results split into **resulsts** and **reports** folders. The reports folder also contains the following summery files:
+    Reports are generated once your submitted job is successfully run. Under your own job directory (/mnt/thl_data/$USER/jobs/ or /mnt/rv_data/$USER/jobs), you can see the actual analysis results split into **results** and **reports** folders. The reports folder also contains the following summery files:
    - Innuendo_reports.xlsx
    - combine_samples_reports.tab
    - Samples_reports.tab
