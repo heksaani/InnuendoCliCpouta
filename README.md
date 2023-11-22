@@ -1,15 +1,16 @@
 
-# Testing InnuendoCLI platform for e-coli species
+# InnuendoCLI platform for Escherichia coli species
 
-## List of things to test in this InnuendoCLI platform 
+## List of things to test in InnuendoCLI platform:
+
 - **Logging into InnuendoCLI machine**:
-  Please make sure that you can login to InnuendoCLI machine using your SSH key authentication. All those who shared public SSH key with CSC should be able to login to InnuendoCLI machine. In Linux/ macOS, one can use the following command to login:
+  Please make sure that you can login to InnuendoCLI machine using your SSH key authentication. All those who shared their respective public SSH key with CSC should be able to login to InnuendoCLI machine. In Linux/ macOS, one can use the following command to login:
   ```bash
    ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@Innuendomachine_ip
   ```
-  The **Innuendomachine_ip** in the above command is sent seperately by e-mail. You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
+  The **Innuendomachine_ip** in the above command is sent separately by e-mail. Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
 - **Understanding your own data folders on InnuendoCLI machine**:
-  We have a dedicated storage area for each institute under the folder "/mnt". Please create a folder (e.g., ftp) for your data under your own username as below:
+  We have a dedicated storage area for each institute under the folder "/mnt". Please create a folder (e.g., ftp) for storing your data under your own username as below:
 
    ```bash
    # THL users
@@ -19,18 +20,20 @@
   ```
   And it is also a good idea to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of samples that you would like to analyse together. Please note that you have to place corresponding metadata file in the same directory as your raw data and launch your pipeline from the same directory.
 
-  Plan is to organise your jobs under a different folder. so please create a folder for storing data resulting from submitted batch jobs as shown below:
+Create a folder for jobs where the analysed data resulting from submitted batch jobs can be stored.
 
    ``` bash
    # THL users
    mkdir -p /mnt/rv_data/$USER/jobs
    # RV users
    mkdir -p /mnt/thl_data/$USER/jobs
-    ```
+
+   ```
    All jobs that you have submitted will be run under your *jobs* folder.
 
-   **Note**: Each user has a home folder (/home/user_name) and one can keep light-weights scripts there. However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any big data files to home folders.
-- **Transfering data to InnuendoCLI machine**: You can use your own favourite file transfer protocol to transfer data from your local place to InnnuendoCLI machine.  You can consult our CSC documentation on [Graphical file transfer tools](https://docs.csc.fi/data/moving/graphical_transfer/) such as FileZilla and WinSCP.
+**Note**: Each user has a home folder (/home/user_name) and one can keep light-weights scripts there. However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any big data files to home folders.
+
+- **Transfering data to InnuendoCLI machine** : You can use your own favourite file transfer protocol to transfer data from your local place to InnnuendoCLI machine.  You can consult our CSC documentation on [Graphical file transfer tools](https://docs.csc.fi/data/moving/graphical_transfer/) such as FileZilla and WinSCP.
   You can of course transfer your data with your favourite command-line tool for data transfer. For example, you can use scp or rsync tool on your macOS/Linux as below:
 
 ```bash
@@ -42,26 +45,29 @@
   rsync -rP -i ~/.ssh/private_key.pem  /path/to/local/folder on local mahcine  user_name@Innuendomachine_ip:"/path/to/destination/folder on Innuendo machine"
 ```
 
-In addition, ALLAS tools are installed on Innuendo2 machine. One can copy files  between Innuendo2 machine and ALLAS object storage. One needs a CSC user account for using these tools. Please check the detailed instructions for using allas tools on [CSC documentation](https://docs.csc.fi/data/Allas/accessing_allas/).
- Activating allas tools on Innuendo machine:
+In addition, ALLAS tools are installed on Innuendo2 machine to copy files  between Innuendo2 machine and ALLAS object storage. Allas tools require a CSC user account and the detailed usage instructions can be found on [CSC documentation](https://docs.csc.fi/data/Allas/accessing_allas/).
+
+Activate allas tools on Innuendo machine as below:
  ```
  > export PATH=${PATH}:/home/ubuntu/allas-cli-utils
  > source /home/ubuntu/allas-cli-utils/allas_conf -u CSC_username
  > e.g., a-put filename -b innuendo2  # innuendo2 bucket is created on allas under our project
   ```
 - **Launching workflows**: Please make sure that you have done the following preparation before launching workflows:
-    - You have uploaded your samples to a dedicated directory (under /mnt/rv_data/use_name/ftp or /mnt/thl_data/user_name/ftp ) on InnuendoCLI machine. It is good idea to create subfolders (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples) corresponding to each batch of samples that you would like to analyse together.
-    - You have created a input metadata file for nextflow job and placed it in the same folder where you have raw data. Creation of matadata input file requires some attention from your side. One example file (metadata_example.csv) is created in this GitHub folder. Please be familiar with allowed terminology associated with different metadata fields.
+    - You have uploaded your samples to a dedicated directory (under /mnt/rv_data/use_name/ftp or /mnt/thl_data/user_name/ftp ) on InnuendoCLI machine. It is a good idea to create a subfolder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples) corresponding to a batch of samples that you would like to analyse together.
+    - You have created a input metadata file for nextflow job and placed it in the same folder where you have raw data. Pay attention to different fields of matadata input file. One example file (metadata_example.csv) is created in this GitHub folder. 
 
-Finally, you have to launch your pipeline from the same folder where you have metadata file and raw data
+Finally, you can launch your pipeline after navigating to the folder where you have metadata file and raw data are stored.
 
    **Usage:**
 
   ```bash
 
-   # Syntax for running automated worklfow in the background. After issueing the following command, please use  **contrl + c**  to get back to the linux terminal; 
+   # Syntax for running automated worklfow in the background.
+   # After issueing the following command, use  **contrl + c**  to get back to linux terminal.
    > nohup bash icli-run -p -m  -r -f metadata_example.csv > log.txt &
-   # you can monitor the resulting output in the file, log.txt ( use vi/vim/nano log.txt) to check if the job has successfully been started.
+   # you can monitor the resulting output in the file, log.txt ( use vi/vim/nano log.txt) to check
+   # if the job has successfully been started.
   
    # Syntax for interactive  usage 
    > icli-run -p -m  -r -f metadata_example.csv
@@ -73,16 +79,19 @@ Finally, you have to launch your pipeline from the same folder where you have me
    # -r    Reports. Write analysis results and reports to DB
    # -f    Metadata file
 
-   # You can monitor the real progress of batch jobs by going into directory where job is running
+   # You can monitor the progress of batch job by going into directory where job is running
    # your job name is your metadata file name without .csv extension
 
-   cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl_data/jobs/your-user-name/job_folder
-   vi/vim/nano nextflow_log.txt
+   > cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl_data/jobs/your-user-name/job_folder
+   > vi/vim/nano nextflow_log.txt
+   # You can check the status of running jobs
+
+   > squeue -l -u user_name
 
    # view reports file 
-   cd reports
+   > cd reports
    # Check the folder with important files for saving. this folder is created once job is successfully finished.
-   cd Final_results
+   > cd Final_results
 
   ```
  - **Examining your reports**:
