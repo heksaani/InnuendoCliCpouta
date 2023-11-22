@@ -30,7 +30,26 @@
    Batch jobs can be submitted from your home or /mnt folders.  All jobs that you have submitted will be run under your *jobs* folder.
 
    **Note**: All users have home folders (/home/user_name). However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any data to home folders.
- 
+- **Transfering data to InnuendoCLI machine**: You can use your own favourite file transfer protocol to transfer data from your local place to InnnuendoCLI machine.  You can consult our CSC documentation on [Graphical file transfer tools](https://docs.csc.fi/data/moving/graphical_transfer/) such as FileZilla and WinSCP.
+  You can of course transfer your data with popular command line tool for data transfer for example using scp and rsync
+
+```bash
+  # The basic  syntax to copy files from a Innuendo machine to a local machine
+  scp  -i ~/.ssh/private_key.pem  user_name@195.148.22.5:"/path/to/file"  
+  rsync -rP -i ~/.ssh/private_key.pem  user_name@195.148.22.5:"/path/to/remote/folder "
+  # The basic syntax for copying data from a local machine to a Innuendo machine
+  scp  -i ~/.ssh/private_key.pem  /path/to/file  user_name@195.148.22.5:"/path/to/destination/folder"
+  rsync -rP -i ~/.ssh/private_key.pem  /path/to/local/folder  user_name@195.148.22.5:"/path/to/destination/folder"
+```
+
+In addition, ALLAS tools are installed on Innuendo2 machine. One can copy files  between Innuendo2 machine and ALLAS object storage. One needs a CSC user account.
+OS Bucket is created (name: innuenedo2  under project_2000767.
+ *Usage*
+ ```
+  > source /home/ubuntu/allas-cli-utils/allas_conf -u CSC_username
+  > export PATH=${PATH}:/home/ubuntu/allas-cli-utils
+  >  a-put filename -b innuendo2
+  ```
 - **Launching workflows**:Please make sure that you have done the following preparation before launching workflows:
     - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on InnuendoCLI machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
     - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the metadata_example.csv file in this GitHub folder. Please be familiar with restrictions associated with different metadata fields. 
