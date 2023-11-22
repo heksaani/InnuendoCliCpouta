@@ -2,12 +2,12 @@
 # Testing InnuendoCLI platform for e-coli species
 
 ## List of things to test in this InnuendoCLI platform 
-- **Logging into the Innuendo2 machine**:
-  Please check that you can login to Innuendo2 machine using SSH key authentication. All those who shared public SSH key with CSC should be able to login to Innuendo2 machine. In Linux/ macOS, one can use the following command to login:
+- **Logging into the InnuendoCLI machine**:
+  Please check that you can login to InnuendoCLI machine using SSH key authentication. All those who shared public SSH key with CSC should be able to login to InnuendoCLI machine. In Linux/ macOS, one can use the following command to login:
   ```bash
    ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@195.148.22.5
   ```
-  You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on Innuendo2 machine.
+  You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
 - **Understanding your own data folders on Inneundo2 machine**:
   We have a dedicated storage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
 
@@ -32,7 +32,7 @@
    **Note**: All users have home folders (/home/user_name). However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any data to home folders.
  
 - **Launching workflows**:Please make sure that you have done the following preparation before launching workflows:
-    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
+    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on InnuendoCLI machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
     - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the metadata_example.csv file in this GitHub folder. Please be familiar with restrictions associated with different metadata fields. 
 
    **Usage:**
@@ -79,7 +79,7 @@
  The excel file, Innuendo_reports.xlsx has all other reports as a separate excel sheet.
 
  - **Visualising ChewBBACA allelic profiles using Grapetree**:
-  Grapetree (version 2.2.0) is installed on Innuendo2 machine and can be used for the visualization of allelic profiles.  You can type the following command on the termincal of Innuendo2 machine to start grapetree programme: 
+  Grapetree (version 2.2.0) is installed on InnuendoCLI machine and can be used for the visualization of allelic profiles.  You can type the following command on the termincal of InnuendoCLI machine to start grapetree programme: 
 
   ```bash
   > grapetree
