@@ -5,9 +5,9 @@
 - **Logging into InnuendoCLI machine**:
   Please make sure that you can login to InnuendoCLI machine using your SSH key authentication. All those who shared public SSH key with CSC should be able to login to InnuendoCLI machine. In Linux/ macOS, one can use the following command to login:
   ```bash
-   ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@server_name
+   ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@Innuendomachine_ip
   ```
-  The **server_name** in the above command is sent seperately by e-mail. You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
+  The **Innuendomachine_ip** in the above command is sent seperately by e-mail. You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
 - **Understanding your own data folders on InnuendoCLI machine**:
   We have a dedicated storage area for each institute under the folder "/mnt". Please create a folder (e.g., ftp) for your data under your own username as below:
 
@@ -29,30 +29,31 @@
     ```
    All jobs that you have submitted will be run under your *jobs* folder.
 
-   **Note**: All users have home folders (/home/user_name). However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any data to home folders.
+   **Note**: Each user has a home folder (/home/user_name) and one can keep light-weights scripts there. However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any big data files to home folders.
 - **Transfering data to InnuendoCLI machine**: You can use your own favourite file transfer protocol to transfer data from your local place to InnnuendoCLI machine.  You can consult our CSC documentation on [Graphical file transfer tools](https://docs.csc.fi/data/moving/graphical_transfer/) such as FileZilla and WinSCP.
-  You can of course transfer your data with popular command line tool for data transfer for example using scp and rsync
+  You can of course transfer your data with your favourite command-line tool for data transfer. For example, you can use scp or rsync tool on your macOS/Linux as below:
 
 ```bash
-  # The basic  syntax to copy files from a Innuendo machine to a local machine
-  scp  -i ~/.ssh/private_key.pem  user_name@195.148.22.5:"/path/to/file"  
-  rsync -rP -i ~/.ssh/private_key.pem  user_name@195.148.22.5:"/path/to/remote/folder "
+  # The basic  syntax to copy files from Innuendo machine to a local machine
+  scp  -i ~/.ssh/private_key.pem  user_name@Innuendomachine_ip:"/path/of the/file/on Innuendo machine"  
+  rsync -rP -i ~/.ssh/private_key.pem  user_name@Innuendomachine_ip:"/path/to/the/folder on Innuendo machine "
   # The basic syntax for copying data from a local machine to a Innuendo machine
-  scp  -i ~/.ssh/private_key.pem  /path/to/file  user_name@195.148.22.5:"/path/to/destination/folder"
-  rsync -rP -i ~/.ssh/private_key.pem  /path/to/local/folder  user_name@195.148.22.5:"/path/to/destination/folder"
+  scp  -i ~/.ssh/private_key.pem  /path/to/file/on local machine  user_name@Innuendomachine_ip:"/path/to/destination/folder on Innuendo machine"
+  rsync -rP -i ~/.ssh/private_key.pem  /path/to/local/folder on local mahcine  user_name@Innuendomachine_ip:"/path/to/destination/folder on Innuendo machine"
 ```
 
-In addition, ALLAS tools are installed on Innuendo2 machine. One can copy files  between Innuendo2 machine and ALLAS object storage. One needs a CSC user account.
-OS Bucket is created (name: innuenedo2  under project_2000767.
- *Usage*
+In addition, ALLAS tools are installed on Innuendo2 machine. One can copy files  between Innuendo2 machine and ALLAS object storage. One needs a CSC user account for using these tools. Please check the detailed instructions for using allas tools on [CSC documentation](https://docs.csc.fi/data/Allas/accessing_allas/).
+ Activating allas tools on Innuendo machine:
  ```
-  > source /home/ubuntu/allas-cli-utils/allas_conf -u CSC_username
-  > export PATH=${PATH}:/home/ubuntu/allas-cli-utils
-  >  a-put filename -b innuendo2
+ > export PATH=${PATH}:/home/ubuntu/allas-cli-utils
+ > source /home/ubuntu/allas-cli-utils/allas_conf -u CSC_username
+ > e.g., a-put filename -b innuendo2  # innuendo2 bucket is created on allas under our project
   ```
-- **Launching workflows**:Please make sure that you have done the following preparation before launching workflows:
-    - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl_data/user_name/ftp ) on InnuendoCLI machine. You may want to create subfolders corresponding to  each sbatch run under ftp folder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples).
-    - You have created input metadata file for nextflow job. Creation of matadata input file requires some attention from your side. One example is created in the metadata_example.csv file in this GitHub folder. Please be familiar with restrictions associated with different metadata fields. 
+- **Launching workflows**: Please make sure that you have done the following preparation before launching workflows:
+    - You have uploaded your samples to a dedicated directory (under /mnt/rv_data/use_name/ftp or /mnt/thl_data/user_name/ftp ) on InnuendoCLI machine. It is good idea to create subfolders (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples) corresponding to each batch of samples that you would like to analyse together.
+    - You have created a input metadata file for nextflow job and placed it in the same folder where you have raw data. Creation of matadata input file requires some attention from your side. One example file (metadata_example.csv) is created in this GitHub folder. Please be familiar with allowed terminology associated with different metadata fields.
+
+Finally, you have to launch your pipeline from the same folder where you have metadata file and raw data
 
    **Usage:**
 
@@ -60,7 +61,7 @@ OS Bucket is created (name: innuenedo2  under project_2000767.
 
    # Syntax for running automated worklfow in the background. After issueing the following command, please use  **contrl + c**  to get back to the linux terminal; 
    > nohup bash icli-run -p -m  -r -f metadata_example.csv > log.txt &
-   # you can monitor the output in the file, log.txt ( use vi/vim/nano log.txt) to check if the job has successfully started.
+   # you can monitor the resulting output in the file, log.txt ( use vi/vim/nano log.txt) to check if the job has successfully been started.
   
    # Syntax for interactive  usage 
    > icli-run -p -m  -r -f metadata_example.csv
@@ -71,18 +72,16 @@ OS Bucket is created (name: innuenedo2  under project_2000767.
    # -m    Metadata. Write metadata to DB
    # -r    Reports. Write analysis results and reports to DB
    # -f    Metadata file
-   # view the progress of jobs
-
 
    # You can monitor the real progress of batch jobs by going into directory where job is running
-   # you need to know job name (you can find under jobs folder and job name is your metadata file name without .csv extension) 
-    
+   # your job name is your metadata file name without .csv extension
+
    cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl_data/jobs/your-user-name/job_folder
    vi/vim/nano nextflow_log.txt
 
    # view reports file 
    cd reports
-   # folder for saving important files
+   # Check the folder with important files for saving. this folder is created once job is successfully finished.
    cd Final_results
 
   ```
@@ -98,19 +97,19 @@ OS Bucket is created (name: innuenedo2  under project_2000767.
  Please note that the excel file, Innuendo_reports.xlsx has all reports, each one in a separate excel sheet.
 
  - **Visualising ChewBBACA allelic profiles using Grapetree**:
-  Grapetree (version 2.2.0) is installed on InnuendoCLI machine and can be used for the visualization of allelic profiles.  You can type the following command on the termincal of InnuendoCLI machine to start grapetree programme: 
+  Grapetree (version 2.2.0) is installed on InnuendoCLI machine and can be used for the visualization of allelic profiles.  You can use the following command to launch grapetree: 
 
   ```bash
   > grapetree
   ```
- Once the software is started one can access it from here: http://195.148.22.5:5000/
+ Once the software is started, one can access it from here: http://floating_ip:5000/. The floating_ip is sent seperately in e-mail.
 
- As metadata needs to be compiled into metadata database for the in-house generated allelic profiles as well as published data, one can only visualise the raw samples. We have created a tool for searching nearest neighbours and fetching the allelec profiles of the neighbour. You have to create a query file with a sample allelic  profile. You will be able to search the nearest neighbours of the sample as below:
+ As metadata need to be compiled into metadata database for the in-house generated allelic profiles as well as published data, one can only visualise the raw samples. A search tool is created for searching nearest neighbours and fetching the corresponding allelec profiles of the neighbours. You have to create a query file with a sample allelic  profile (check example file:indexquery in this GitHub) and the search the nearest neighbours of the sample as below:
 
 ```bash
 > index_profiles indexquery
 ```
-The above command will produce a file (file name: "indexquery_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be used to generate tree visualisations with GrapeTree software.
+Above command will produce a file (file name: "indexquery_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be used to generate tree visualisations with GrapeTree software.
 
 - **Troubleshooting Guide**: <br>
 
