@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Given the query profile of sample, give the profiles of nearest neighbours
+file="$1"
+if [ -f "$file" ]; then
+    echo 'you have entered the file, '"$file"' as input. Hits if any will be written to output file: '"$file"'_nearest_profiles.tsv'
+else
+    echo "please enter input file"
+fi
+
+export PATH="/mnt/singularity_cache2/pipelines/indexing_db_public_inhouse/fast-mlst/src/:$PATH"
+main -i /mnt/singularity_cache2/pipelines/indexing_db_public_inhouse/fast-mlst/ecoli -q 30 < "$file" > "$file"_output
+awk '{print $1}' "$file"_output > samples.txt
+
+grep  -f samples.txt  /mnt/singularity_cache2/pipelines/indexing_db_public_inhouse/wgMLST_forindexing.tsv > "$file"_nearest_profiles.tsv
+
+rm "$file"_output && rm samples.txt

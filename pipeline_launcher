@@ -1,0 +1,167 @@
+#!/bin/bash
+#
+# This script will take metadata input file created by icli-run script and run the pipelines
+# in the user-specific directories
+#
+# usage: 
+# 
+# bash launch_pipeline_selectedsample.sh metadata_inputfile
+#
+
+# read metadata_inputfile to a variable
+md_inputfile="$1"
+
+# shorten the job name directory
+job_name="${md_inputfile%.csv_input.tmp}"
+
+# read data from input file
+semicolon=$(printf ";")
+while IFS=$semicolon read	sample_species	sample_name	user_name	user_group	run_id	read_1	read_2	reports
+do
+  echo "$sample_species $sample_name $run_id $users $read_1 $read_2 $reports"
+  user=`echo $user_name` 
+  runid=`echo $run_id`
+  Input_file1=`echo $read_1`
+  Input_file2=`echo $read_2`
+  pipeline=`echo $sample_species`
+  echo "Input reads: $Input_file1 and $Input_file2"
+  user_path=$(echo $Input_file1 | cut -d/ -f1-4)
+  mkdir -p "$user_path/jobs/$job_name"
+  job_dir="$user_path/jobs/$job_name"
+  mkdir -p $job_dir/data
+  job_data="$job_dir/data"
+ 
+
+ # soft link paired data of all samples
+
+  if [[ $(ls -l $Input_file1 $Input_file2 | wc -l ) -eq '2' ]] 2> /dev/null  && [ $user != "user_name" ]
+then    
+	echo "Paired data exist - $Input_file1 and $Input_file2"
+	read1= basename $Input_file1
+	read2= basename $Input_file2
+	ln -s $Input_file1  $job_data/$read1
+	ln -s $Input_file2  $job_data/$read2
+
+  elif [ $user == "user_name" ] ; then
+        echo "skipping header"
+  else 
+	echo "No recognised input files found for ${Input_file1} and ${Input_file2}"
+   
+  fi
+
+done < <(grep "" $md_inputfile)
+
+# copy metadata file to job directory
+cp $md_inputfile   $job_dir/metadata_input.csv
+
+# Make sure that all samples in the input file are meant for running one pipeline
+if [[ $( tail -n +2 $md_inputfile | awk -F';' '{print $1}' | sort -u  |  wc -l ) -gt 1 ]] 2> /dev/null
+then
+        echo "Please use a input file per pipeline. It seems more than one pipeline is mentioned in the input file"
+	exit 1
+
+else
+        echo "Unique pipeline will be used"
+fi
+
+
+if [[ $(ls -l $job_data/*_1_*.fastq.gz | wc -l ) -gt 0 ]] 2> /dev/null 
+then
+	echo "Fastq file(s) found with pattern *_1_*.fastq.gz"
+	Nextflow_input="$job_data/*_{1,2}_*.fastq.gz"
+
+elif [[ $(ls -l $job_data/*_1.fastq.gz | wc -l ) -gt 0 ]] 2> /dev/null 
+then
+	echo "Fastq file(s) found with pattern *_1.fastq.gz"
+	Nextflow_input="$job_data/*_{1,2}.fastq.gz"
+elif [[ $(ls -l $job_data/*_R1.fastq.gz | wc -l ) -gt 0 ]] 2> /dev/null
+then
+	echo "Fastq file(s) found with pattern *_R1.fastq.gz"
+	Nextflow_input="$job_data/*_{R1,R2}.fastq.gz"
+elif [[ $(ls -l $job_data/*_R1_*.fastq.gz | wc -l ) -gt 0 ]] 2> /dev/null
+then
+	echo "Fastq file(s) found with pattern *_R1_*.fastq.gz"
+	Nextflow_input="$job_data/*_{R1,R2}_*.fastq.gz"
+
+else
+	echo "No recognised input files found"
+fi
+
+
+
+# Build pipeline
+cd $job_dir
+
+echo "building pipeline in the directory : $job_dir"
+# deduce pipeline name from species name
+
+case "$pipeline" in
+      "escherichia coli"|"Escherichia Coli"|"Escherichia coli")
+          pipeline='ecoli' ;;
+      "campylobacter jejuni"|"Campylobacter Jejuni"|"Campylobacter jejuni"|"campylobacter Jejuni")
+          pipeline='cjejuni' ;;
+       "Salmonella enterica"|"Salmonella Enterica"|"salmonella Enterica"|"salmonella enterica")
+          pipeline='yenterocolitica' ;;
+      "Listeria monocytogenes"|"Listeria Monocytogenes"|"listeria monocytogenes"|"listeria Monocytogenes")
+          pipeline='lmonocytogenes' ;;
+      *)
+          echo 'error in pipeline species name' >&2
+          exit 1
+esac
+
+echo $pipeline
+
+bash /mnt/singularity_cache2/pipelines/$pipeline.sh
+cp /mnt/singularity_cache2/pipelines/$pipeline/* .
+mv reports_helper.py templates/
+# Run pipeline
+
+if [ $pipeline == "ecoli" ] ; then
+  echo "Running ecoli pipeline"
+  nextflow run pipeline_ecoli.nf --fastq $Nextflow_input -profile incd --mlstSpecies_12 ecoli  --species_5  "Escherichia coli"     --species_19  "Escherichia coli"  --species_18  "Escherichia coli"  --species_29  "Escherichia coli" --species_27  "Escherichia coli"  -resume -bg 2>&1 >  nextflow_log.txt
+
+elif [ $pipeline == "cjejuni" ] ; then
+    echo "Running campy pipeline"
+    nextflow run pipeline_cmpy.nf --fastq $Nextflow_input  -profile incd --mlstSpecies_12 campylobacter --species_5 'Campylobacter jejuni' --species_29 'Campylobacter jejuni' --species_27 'Campylobacter jejuni' -resume -bg 2>&1 >  nextflow_log.txt
+
+elif [ $pipeline == "senterica" ] ; then
+    echo "Running Salmonella pipeline"
+    nextflow run pipeline_salmonella.nf --fastq $Nextflow_input  -profile incd --mlstSpecies_12 senterica  --species_5   "Salmonella enterica"   --species_27  "Salmonella enterica"  --species_29  "Salmonella enterica"   -resume  -bg 2>&1 >  nextflow_log.txt
+
+elif [ $pipeline == "yenterocolitica" ] ; then
+    echo "Running yersinia pipeline"
+    nextflow run pipeline_yersinia.nf --fastq $Nextflow_input  -profile incd --mlstSpecies_12 yersinia --species_5 'Yersinia enterocolitica' --species_18 'Yersinia enterocolitica' --species_27 'Yersinia enterocolitica' --species_29 'Yersinia enterocolitica' -resume -bg 2>&1 >  nextflow_log.txt
+
+elif [ $pipeline == "lmonocytogenes" ] ; then
+    echo "Running Listeria pipeline"
+    nextflow run pipeline_listeria.nf --fastq $Nextflow_input  --referenceFile_35 '/mnt/singularity_cache2/serogrouping/Listeria_mono.fasta' -profile incd --mlstSpecies_12 lmonocytogenes   --species_5  "Listeria monocytogenes"  --species_27  "Listeria monocytogenes"  --species_29  "Listeria monocytogenes"   -resume  -bg 2>&1 >  nextflow_log.txt
+
+else
+        echo "No pipeline is detected"
+fi
+
+
+
+#  Wait for the pipeline to be finished
+
+sleep 10
+
+echo "Nextflow pipeline is running"
+pid=$(lsof -Fp  $job_dir/.nextflow/cache/*/db/LOCK | sed 's/^p//' | head -n 1)
+while kill -0 "$pid" >/dev/null 2>&1; do
+sleep 60
+done
+
+echo "process is finished"
+
+
+# Build reports (This one currently works when workflow job  is successfully run).
+
+mkdir results/md5_sha256
+# compute md5/sha256 values; change paths
+for file in $job_data/*.gz; do sha256sum $file; done > $job_dir/results/md5_sha256/sha256sum.txt
+for file in $job_data/*.gz; do md5sum $file; done > $job_dir/results/md5_sha256/md5sum.txt
+
+# Generate reports
+bash generate_reports.sh
+~
