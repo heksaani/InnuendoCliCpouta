@@ -8,7 +8,7 @@
    ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@195.148.22.5
   ```
   You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
-- **Understanding your own data folders on Inneundo2 machine**:
+- **Understanding your own data folders on InnuendoCLI machine**:
   We have a dedicated storage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
 
    ```bash
