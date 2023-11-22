@@ -29,7 +29,7 @@
     ```
   All jobs that you have submitted will be created under *jobs* folder.
 
- *Note**: All users have home folders (/home/user_name). However, the holde folder space is very limited and  one should not download any data to home folders.
+ **Note**: All users have home folders (/home/user_name). However, the holde folder space is very limited and  one should not download any data to home folders.
 - **Launching workflows**:
    - Please make sure that you have done the following preparation before launching workflows:
      - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine
