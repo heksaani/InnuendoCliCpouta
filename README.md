@@ -44,7 +44,7 @@
    # you can monitor the output in the file, log.txt ( use vi/vim/nano log.txt) to check if the job has successfully started.
   
    # Syntax for interactive  usage 
-   # icli-run -p -m  -r -f metadata_example.csv
+   > icli-run -p -m  -r -f metadata_example.csv
    
    # Options:
    # -p    Pipeline. Run the pipeline
