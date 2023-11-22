@@ -2,14 +2,14 @@
 # Testing InnuendoCLI platform for e-coli species
 
 ## List of things to test in this InnuendoCLI platform 
-- **Logging into the InnuendoCLI machine**:
-  Please check that you can login to InnuendoCLI machine using SSH key authentication. All those who shared public SSH key with CSC should be able to login to InnuendoCLI machine. In Linux/ macOS, one can use the following command to login:
+- **Logging into InnuendoCLI machine**:
+  Please make sure that you can login to InnuendoCLI machine using your SSH key authentication. All those who shared public SSH key with CSC should be able to login to InnuendoCLI machine. In Linux/ macOS, one can use the following command to login:
   ```bash
-   ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@195.148.22.5
+   ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@server_name
   ```
-  You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
+  The **server_name** in the above command is sent seperately by e-mail. You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder on InnuendoCLI machine.
 - **Understanding your own data folders on InnuendoCLI machine**:
-  We have a dedicated storage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
+  We have a dedicated storage area for each institute under the folder "/mnt". Please create a folder (e.g., ftp) for your data under your own username as below:
 
    ```bash
    # THL users
@@ -17,9 +17,9 @@
    # RV users
    mkdir -p /mnt/thl_data/$USER/ftp
   ```
-  And you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of samples that you would like to run together.
+  And it is also a good idea to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of samples that you would like to analyse together. Please note that you have to place corresponding metadata file in the same directory as your raw data and launch your pipeline from the same directory.
 
-  Plan is to organise your jobs under a different folder. so please create a folder for runnung and storing data resulting from submitted batch jobs under your username as below:
+  Plan is to organise your jobs under a different folder. so please create a folder for storing data resulting from submitted batch jobs as shown below:
 
    ``` bash
    # THL users
@@ -27,7 +27,7 @@
    # RV users
    mkdir -p /mnt/thl_data/$USER/jobs
     ```
-   Batch jobs can be submitted from your home or /mnt folders.  All jobs that you have submitted will be run under your *jobs* folder.
+   All jobs that you have submitted will be run under your *jobs* folder.
 
    **Note**: All users have home folders (/home/user_name). However, the home folder space is very limited and requires frequent self-cleaning.  One should not download any data to home folders.
 - **Transfering data to InnuendoCLI machine**: You can use your own favourite file transfer protocol to transfer data from your local place to InnnuendoCLI machine.  You can consult our CSC documentation on [Graphical file transfer tools](https://docs.csc.fi/data/moving/graphical_transfer/) such as FileZilla and WinSCP.
