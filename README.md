@@ -109,7 +109,7 @@ The above command will produce a file (file name: "indexquery_nearest_profiles.t
  Above error is as a consequnce of not using quotes when giving path to input files. Make sure to use quotes ('') to fastq sample path as below:
   nextflow run pipeline_ecoli.nf --fastq '/mnt/rv_data/lyetukur/jobs/33/data/*_{1,2}.fastq.gz' ....
 
- **Please note*** that this isssue is only when one tries to run nextflow pipeline manually. When pipelines are launched with ìcli-run`, you will come across this issue.
+ **Please note** that this isssue is only when one tries to run nextflow pipeline manually. When pipelines are launched with *icli-run*, you will **NOT** come across this issue.
 
 
  **Q2: ChewBBACA: file not found: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/singularity_cache2/shared_files/chewbbaca_test_bala/ecoli/test_schema_ecoli_download/ecoli_INNUENDO_wgMLST/temp/INNUENDO_wgMLST-  00016261.fasta_result.txt'**
