@@ -2,14 +2,14 @@
 # Testing InnuendoCLI platform for e-coli species
 
 ## List of things to test in this InnuendoCLI platform 
-- **Logging into the innuendo2 machine**:
-  Please check that you can login to Innuendo2 machine using SSH key authentication. All those who have shared your public SSH key with us should be able to login to Innuendo machine. In Linux/ macOS, one can use the following command to login:
+- **Logging into the Innuendo2 machine**:
+  Please check that you can login to Innuendo2 machine using SSH key authentication. All those who shared public SSH key with CSC should be able to login to Innuendo2 machine. In Linux/ macOS, one can use the following command to login:
   ```bash
    ssh -i ~/.ssh/your_private_ssh_key.pem  your_user_name@195.148.22.5
   ```
-  You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/)
-- **Data folders on Inneundo2 machine**:
-  We have a dedicated stiorage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
+  You can also find more detailed instructions on [our CSC documentation](https://docs.csc.fi/computing/connecting/). Upon successful login, you will end up in your own home folder.
+- **Understand your onw data folders on Inneundo2 machine**:
+  We have a dedicated storage area for each institute under the folder "/mnt". Please create a storage folder (e.g., ftp) for your data under your own username as below:
 
    ```bash
    # THL users
@@ -17,9 +17,9 @@
    # RV users
    mkdir -p /mnt/THL_data/$USER/ftp
   ```
-  And also you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of smaples that you would like to run together.
+  And also you might want to create a subfolder (e.g., /mnt/rv_data/$USER/ftp/ecoli_data)  for a set of samples that you would like to run together.
 
-  Please create a folder for jobs under your username:
+  Please create a folder for runnung and storing jobs under your username:
 
    ``` bash
    # THL users
@@ -29,21 +29,21 @@
     ```
   All jobs that you have submitted will be created under *jobs* folder.
 
-**Note**: Please don't download any data to home folders.
-- **Running workflows**:
+ *Note**: All users have home folders (/home/user_name). However, the holde folder space is very limited and  one should not download any data to home folders.
+- **Launching workflows**:
    - Please make sure that you have done the following preparation before launching workflows:
-     - You have downloaded samples to a dedicated directory (/mnt/rv_data/$USER/data or /mnt/thl/$USER/data ) on Innuendo machine
-     - You have edited input template file for worklfows 
+     - You have downloaded samples to a dedicated directory (/mnt/rv_data/use_name/ftp or /mnt/thl/user_name/ftp ) on Innuendo2 machine
+     - You have created input template file for worklfows 
 
   **Usage:**
 
   ```bash
 
    # Syntax:
-   > nohup bash icli-run -p  -r -f md_example_1.csv > test &
+   > nohup bash icli-run -p  -r -f test.csv > test &
 
    # Syntax:
-   # icli-run -p -m -r -f metadata.csv
+   # icli-run -p -m -r -f test.csv
    #
    # Options:
    # -p    Pipeline. Run the pipeline
@@ -57,13 +57,14 @@
    vi/vim/nano test_ecoli  # use your favourite editor to see if job has started
 
    # You can also check the real progress of batch jobs by going into directory where job is running
-   # you need to know runid (you can find it in your input template file)  specific to your run.
-
-   cd /mnt/rv_data/jobs/your-user-name/runid  or cd /mnt/thl/jobs/your-user-name/runid 
+   # you need to know job name (you can find under jobs folder and job name is your metadata file name without .csv extension) 
+    
+   cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl/jobs/your-user-name/job_folder
    vi/vim/nano nextflow_log.txt
 
    # view reports file 
    cd reports
+   # folder for saving important files
   ```
 
 
