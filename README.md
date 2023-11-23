@@ -87,7 +87,7 @@
    # your job name is your metadata file name without .csv extension
 
    cd /mnt/rv_data/jobs/your-user-name/job_folder or cd /mnt/thl_data/jobs/your-user-name/job_folder
-   vi/vim/nano nextflow_log.txt
+   cat/less/head/tail nextflow_log.txt
    
    # You can check the status of running jobs
    squeue -l -u user_name
