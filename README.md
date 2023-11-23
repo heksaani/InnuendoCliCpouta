@@ -120,10 +120,9 @@
     Once the software is launched, you can access it from your web browser using the following URL: http://floating_ip:5000/. The floating_ip is shared 
     seperately in e-mail.
 
-    As metadata need to be compiled into metadata database for the in-house generated allelic profiles as well as published data, one can only visualise the  
-    raw samples. A search tool is created for searching nearest neighbours and fetching the corresponding allelec profiles of the neighbours. You have to 
-    create a query file with a sample allelic  profile (check example file:indexquery in this GitHub) and the search the nearest neighbours of the sample as 
-    below:
+    As metadata need to be compiled for the in-house generated allelic profiles, one can only visualise the  
+    raw samples for now. A search tool is created for finding nearest neighbours and fetching the corresponding allelec profiles of the neighbouring samples.     You have to create a query file with a sample allelic  profile (check example file:indexquery in this GitHub) and the search the nearest neighbours of
+    the sample as below:
 
     ```bash
     index_profiles indexquery
