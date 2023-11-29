@@ -1,0 +1,17 @@
+  # Column 1: pipeline species (compulsory, set terms)
+  # Column 2: primary_identifier (compulsory)
+  # Column 3: RYMY-ID (optional)
+  # Column 4: Food_bug (optional)
+  # Column 5: Source (compulsory, set terms)
+  # Column 6: Sampling reason (optional, set terms)
+  # Columns 7-8: Sampling-Date, Sample-Received-Date (conditionally optional)
+  # Column 9: Owner-Collection (compulsory, set terms)
+  # Column 10: Submitter-Sample
+  # Column 11: Submitter-Database
+  # Column 12: Location (optional, set terms)
+  # Column 13: AMR-Phenotype (optional, set terms)
+  # Column 17: Accession (Optional)
+  # Column 18: Instrument (optional, set terms)
+  # Column 19: Library
+  # Column 20: Library-Other
+  # Column 21: Write reports (If omitted, assume "n". )
