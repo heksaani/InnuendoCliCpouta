@@ -60,7 +60,8 @@
 - ### **Launching workflows**
   Please make sure that you have done the following preparation before launching workflows:
     - You have uploaded your samples to a dedicated directory (under /mnt/rv_data/use_name/ftp or /mnt/thl_data/user_name/ftp ) on InnuendoCLI machine. It is a good idea to create a subfolder (e.g., /mnt/rv_data/use_name/ftp/ecoli_samples for e-coli samples) corresponding to a batch of samples that you would like to analyse together.
-    - You have created a input metadata file for nextflow job and placed it in the same folder where you have raw data. Pay attention to different fields of matadata input file. One example file (metadata_example.csv) is created in this GitHub folder. 
+    - You have created a input metadata file for nextflow job and placed it in the same folder where you have raw data. Pay attention to different fields of matadata input file. One example file (metadata_example.csv) is created in this GitHub folder. You can check metadata_screenshot.png file for more clarity. Please read files inside of the folder "MetadataVocab" in this GitHub to understand more about
+different metadata fields and restrictons.
 
    Finally, you can launch your pipeline after navigating to the folder where you have metadata file and raw data are stored.
 
@@ -70,8 +71,9 @@
    # Syntax for running automated worklfow in the background.
    # After issueing the following command, use  **contrl + c**  to get back to linux terminal.
    nohup bash icli-run -p -m  -r -f metadata_example.csv > log.txt &
-   # you can monitor the resulting output in the file, log.txt ( use vi/vim/nano log.txt) to check
+   # you can monitor the resulting output in the file, log.txt ( use less/more/tail log.txt) to check
    # if the job has successfully been started.
+   # You can also view file metadata_screenshot.png to get some idea about metadata file
   
    # Syntax for interactive  usage 
    icli-run -p -m  -r -f metadata_example.csv
