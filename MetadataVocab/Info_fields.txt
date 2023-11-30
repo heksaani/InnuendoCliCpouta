@@ -6,10 +6,11 @@
   # Column 6: Sampling reason (optional, set terms)
   # Columns 7-8: Sampling-Date, Sample-Received-Date (conditionally optional)
   # Column 9: Owner-Collection (compulsory, set terms)
-  # Column 10: Submitter-Sample
-  # Column 11: Submitter-Database
+  # skipped in template; Column 10: Submitter-Sample
+  # skipped in template ; Column 11: Submitter-Database
   # Column 12: Location (optional, set terms)
   # Column 13: AMR-Phenotype (optional, set terms)
+  # Column 14: Additional-Information (optional)
   # Columns 15-16: Read files
   # Column 17: Accession (Optional)
   # Column 18: Instrument (optional, set terms)
