@@ -10,6 +10,7 @@
   # Column 11: Submitter-Database
   # Column 12: Location (optional, set terms)
   # Column 13: AMR-Phenotype (optional, set terms)
+  # Columns 15-16: Read files
   # Column 17: Accession (Optional)
   # Column 18: Instrument (optional, set terms)
   # Column 19: Library
