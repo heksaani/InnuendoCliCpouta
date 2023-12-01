@@ -70,11 +70,13 @@ different metadata fields and restrictons.
    ```bash
    # Syntax for running automated worklfow in the background.
    # After issueing the following command, use  **contrl + c**  to get back to linux terminal.
+   
    nohup bash icli-run -p -m  -r -f metadata_example.csv > log.txt &
+   
+   # You can also view file metadata_screenshot.png to get some idea about metadata file
    # you can monitor the resulting output in the file, log.txt ( use less/more/tail log.txt) to check
    # if the job has successfully been started.
-   # You can also view file metadata_screenshot.png to get some idea about metadata file
-  
+
    # Syntax for interactive  usage 
    icli-run -p -m  -r -f metadata_example.csv
    
@@ -132,9 +134,9 @@ different metadata fields and restrictons.
     Above command will produce a file (file name: "indexquery_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be
     used to generate tree visualisations with GrapeTree software.
    
-- ### **Known issues or warning messages**
+- ### **Known issues/warning messages**
   
- 1. In the nextflow_log.txt under jobs directory, you may see the following slurm warning message but it will not affect the execution process. So please ignore it.
+ 1. In the nextflow_log.txt file under jobs directory, you may see the following slurm warning message which will not affect the execution process. So please ignore it.
     
  ```bash 
   WARN: [SLURM] queue (test) status cannot be fetched
