@@ -131,7 +131,19 @@ different metadata fields and restrictons.
     ```
     Above command will produce a file (file name: "indexquery_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be
     used to generate tree visualisations with GrapeTree software.
+   
+- ### **Known issues or warning messages**
+  
+ 1. In the nextflow_log.txt under jobs directory, you may see the following slurm warning message but it will not affect the execution process. So please ignore it.
+    
+ ```bash 
+  WARN: [SLURM] queue (test) status cannot be fetched
+   - cmd executed: squeue --noheader -o %i %t -t all -p test -u lyetukur
+   - exit status : 1
+   - output      :
+   ...
 
+ ```
 - ### **Troubleshooting Guide**: <br>
 
   **Q1: Information in log files indicate that the large number of samples are submitted as part of  nextflow job despite fewer samples have infact been submitted**
