@@ -190,6 +190,6 @@ different metadata fields and restrictons.
      ```
      kill <pid>
      ```
- **Q5: ChewBBACA error: EOFError: Ran out of input or Filenotfound error**
+  **Q5: ChewBBACA error: EOFError: Ran out of input or Filenotfound error**
    <br>
-    **A2**: Ran out of disk space in the folder where ChewBBACA databases are stored
+    **A2**: Ran out of disk space where ChewBBACA databases are stored
