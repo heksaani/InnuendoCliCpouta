@@ -116,7 +116,7 @@ different metadata fields and restrictons.
 
  - ### **Visualising ChewBBACA allelic profiles using Grapetree**
    Grapetree software (version 2.2.0) is installed on InnuendoCLI machine and can be used for the visualization of allelic profiles.  You can use the
-   following command to on linux terminal to launch GrapeTree: 
+   following command on linux terminal to launch GrapeTree: 
 
     ```bash
     grapetree
