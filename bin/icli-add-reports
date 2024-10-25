@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Script to add reports to the DB
+#
+# Run by the icli-run script if option -r set on command line 
+# or "Add reports" set in metadata file.
+#
+# Can also be run manually to add report files.
+#
+# Syntax:
+# icli-add-reports  <path>
+
+if [[ -f "AMR_reports.tab" ]]; then
+    icli-insert_amr_reports.sh $1/AMR_reports.tab
+fi
+if [[ -f "combine_samples_report.tab" ]]; then
+    icli-insert_combine_samples_reports.sh  $1/combine_samples_report.tab
+fi
+if [[ -f "log_reports.tab" ]]; then
+    icli-insert_log_reports.sh  $1/log_reports.tab
+fi
+if [[ -f "Samples_reports.tab" ]]; then
+    icli-insert_samples_reports.sh  $1/Samples_reports.tab
+fi
+if [[ -f "typing_reports.tab" ]]; then
+    icli-insert_typing_reports.sh $1/typing_reports.tab
+fi
