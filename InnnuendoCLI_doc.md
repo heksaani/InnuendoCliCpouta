@@ -10,7 +10,7 @@
  - [Troubleshooting](#troubleshooting)
 
 ## Installation of InnuendoCLI platform
-### Installation of Nextflow:
+### Installation of Nextflow
 Nextflow is a workflow manager that enables scalable and reproducible scientific workflows using software containers.
 An overview of how to install and its requirements, please refer to [official documentation](https://www.nextflow.io/docs/latest/index.html).
 However, you can run the following commands for basic installation:
@@ -39,9 +39,9 @@ nextflow -h
  
 > Please note that the nextflow version starting from 23.04.3 can only be used for pipelines built with DSL2. You can downgrade to lower versions for DSL1-compliant pipelines.
 
-### Installation of flowcraft:
+### Installation of Flowcraft
 
-In the InnuendoCLI platform, Flowcraft serves as the pipeline builder, generating workflows according to the defined protocols. For more details, please consult official [documentation](https://flowcraft.readthedocs.io/en/latest/?badge=latest).
+In the InnuendoCLI platform, Flowcraft serves as the pipeline builder, generating workflows according to the defined protocols. For more details, please consult official [documentation](https://flowcraft.readthedocs.io/en/latest/?badge=latest). Here is a way to install the flowcraft using conda:
 
 ```
 # Install Miniconda (if not already installed)
