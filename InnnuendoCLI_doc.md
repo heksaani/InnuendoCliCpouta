@@ -1,10 +1,11 @@
-# InnuendoCLI platform documentation
+# InnuendoCLI platform documentation (WIP)
 
 ## Contents
  - [Installation of InnuendoCLI platform](#installation-of-innuendoCLI-platform)
  - [InnuendoCLI Usage](#innuendocli-usage)
  - [Updating or adding a new module in InnuendoCLI platform](#updating-a-module-in-innuendoCLI-platform)
- - [Updating databases](#update-innuendoCLI-database)
+ - [Updating software databases](#update-innuendoCLI-software-database)
+ - Sample databases
  - [Updating a new software/tool](#updating-a-new-software)
  - [Troubleshooting](#troubleshooting)
 
@@ -381,7 +382,7 @@ python3 /usr/local/lib/python3.6/dist-packages/flowcraft-1.4.2-py3.6.egg/flowcra
   
 ```
 
-## Update InnuendoCLI database
+## Update InnuendoCLI software database  
 
 InnuendoCLI uses multiple databases that often need to be updated regularly. Each database may have multiple sources or methods for updating. Below are some examples of how to update these databases.
 
