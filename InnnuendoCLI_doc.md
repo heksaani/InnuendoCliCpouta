@@ -12,7 +12,7 @@
 ### Installation of Nextflow:
 Nextflow is a workflow manager that enables scalable and reproducible scientific workflows using software containers.
 An overview of how to install and its requirements, please refer to [official documentation](https://www.nextflow.io/docs/latest/index.html)
-However, you can run the following commands for basic instalaltion:
+However, you can run the following commands for basic installation:
 ```
 # Install Java (required for Nextflow)
 sudo apt install openjdk-11-jre-headless
@@ -25,8 +25,8 @@ wget -qO- https://get.nextflow.io | bash
 
 
 ```
-This will install *nextflow* binary on the current directory. To make it accessible system-wide, you need to add it to your PATH. You can do this by simply
-moving the executable to the path /usr/local/bin as below:
+Above script installs *nextflow* binary on the current directory. To make it accessible system-wide, you need to add it to user PATH by simply
+moving the executable to  /usr/local/bin as shown below:
 ```
 # Move the binary to a system-wide location
 sudo mv nextflow /usr/local/bin
@@ -61,7 +61,7 @@ Before launching workflows, please ensure the following preparations are complet
 
 For better organization, create a subfolder corresponding to each batch of samples you plan to analyze (e.g., /mnt/rv_data/your_username/ftp/ecoli_samples for E. coli samples).
 
-- **Metadata File Upload**: Create an input metadata file for the Nextflow job and place it in the same folder as your raw data.
+- **Metadata File Upload**: Create an input metadata file for the Nextflow job and place it under the same folder as your raw data.
    - Follow the field specifications carefully.
    - Refer to metadata_example.csv and metadata_screenshot.png in the GitHub repository.
    - See the *MetadataVocab* folder for field definitions and restrictions.
@@ -103,8 +103,7 @@ For better organization, create a subfolder corresponding to each batch of sampl
    ```
 
   ### **Examining your reports**
-    Reports are generated once your submitted job is successfully run. Under your own job directory (/mnt/thl_data/$USER/jobs/ or /mnt/rv_data/$USER/jobs),
-    you can see the actual analysis results split into **results** and **reports** folders. The reports folder also contains the following summery files:
+    Reports are generated automatically once your submitted job has successfully run. Within your job directory (located under the base path: /mnt/thl_data/$USER/jobs/ or /mnt/rv_data/$USER/jobs/), you will find the analysis results organized into two folders: results and reports. The reports folder also includes the following summary files:
    - Innuendo_reports.xlsx
    - combine_samples_reports.tab
    - Samples_reports.tab
@@ -112,7 +111,7 @@ For better organization, create a subfolder corresponding to each batch of sampl
    - log_reports.tab
    - typing_reports.tab
 
-   Please note that the excel file, Innuendo_reports.xlsx comprises all reports, each one in a separate excel sheet.
+   Please note that the excel file, Innuendo_reports.xlsx also comprises all reports, each one in a separate excel sheet.
 
  - ### **Visualising ChewBBACA allelic profiles using Grapetree**
    Grapetree software (version 2.2.0) is installed on InnuendoCLI machine and can be used for the visualization of allelic profiles.  You can use the
@@ -124,19 +123,16 @@ For better organization, create a subfolder corresponding to each batch of sampl
     Once the software is launched, you can access it from your web browser using the following URL: http://floating_ip:5000/. The floating_ip is shared 
     seperately in e-mail.
 
-    As metadata need to be compiled for the in-house generated allelic profiles, one can only visualise the  
-    raw samples for now. A search tool is created for finding nearest neighbours and fetching the corresponding allelec profiles of the neighbouring samples.     You have to create a query file with a sample allelic  profile (check example file:indexquery in this GitHub) and the search the nearest neighbours of
-    the sample as below:
+   Since metadata is still being compiled for the in-house generated allelic profiles, only the raw samples can be visualized at this time. A search tool has been developed to find the nearest neighbors and retrieve their corresponding allelic profiles. To use this tool, you need to create a query file containing the allelic profile of a sample (see the example  file: indexquery in this GitHub repository), and then run the search for the sample’s nearest neighbors as shown below::
 
     ```bash
     index_profiles indexquery
     ```
-    Above command will produce a file (file name: "indexquery_nearest_profiles.tsv") with nearest neighbours along with their allelic profiles. This can be
-    used to generate tree visualisations with GrapeTree software.
+    The command above will generate a file named indexquery_nearest_profiles.tsv, containing the nearest neighbors along with their allelic profiles. This file can be used to create tree visualizations using the GrapeTree software.
    
 ## Updating a module in InnuendoCLI platform
 
-For the InnuendoCLI platform, there are a set of Workflow recipes that can be constructed to run software on the strain data in the correct order.InnuendoCLI platform uses [FlowCraft technology](https://github.com/assemblerflow/flowcraft) to build pipelines dynamically based on the available modules. A new module needs to be defined as a component of Flowcraft tobe able to use it on-the-fly. InnuendoCLI has its own recipe ("innuendo") and can be checked for the available modules in the recipe as below:
+The InnuendoCLI platform provides a set of workflow recipes that can be assembled to run software on strain data in the correct order. It leverages [FlowCraft technology](https://github.com/assemblerflow/flowcraft) to dynamically build pipelines based on available modules. To use a new module on-the-fly, it must first be defined as a component within FlowCraft. InnuendoCLI includes its own recipe called innuendo, and you can view the available modules within this recipe using the following command:
 
 ```bash
 > flowcraft build -L # this should list all the available modules in  the flowcraft
@@ -154,7 +150,9 @@ The entire process of creating (or updating) InnuendoCLI with a new module invol
 
 ### Modify InnuendoCLI platform recipe file 
 
-InnuendoCLI platform has its own curated recipe file (filename - recipe.py) which defines a set of software tools that can be run on the strain data in the correct order. So add new nextflow module (e.g., krakekn2) paying attention to dependencies with other sofwtare tools as shown below:
+The InnuendoCLI platform includes a curated recipe file (recipe.py) that defines a set of software tools and their execution order for processing strain data.
+
+To add a new Nextflow module (e.g., Kraken2), you must update this recipe file, ensuring that the new module is integrated in the correct position within the workflow and that any dependencies on other tools are properly handled. An example of how to add a module while managing dependencies is shown below:
 
 ```
 class Innuendo(InnuendoRecipe):
@@ -196,7 +194,7 @@ The recipe.py file is locoated  inside the folder ".../flowcraft/generator/".  I
 
 ### Build Singularity image of Kraken2 
 
-Singularity image of Krakene software was built from Docker image as downloaded from [Docker hub](https://hub.docker.com/). kraken2  module can be build from the definition file (deffile) or directly can pub pulled from the docker registries if the image available.
+The Singularity image for the Kraken2 software was built from a Docker image downloaded from [Docker hub](https://hub.docker.com/). The Kraken2 module can be built using a Singularity definition file (deffile) or pulled directly from Docker registries if the image is available.
 
 ```
 Bootstrap: docker
@@ -217,9 +215,9 @@ For example one can pull the image for the DocekrHub as below:
 sudo singularity build docker://staphb/kraken2:2.1.3
 ```
 
-The built image can be stored on the singularity cache directory. In principle, if we give URL of image from a resgitry, the image can be built on-the-fly. However, this may lead to some errors if not executed properly. 
+The built image can be stored in the Singularity cache directory. In principle, if you provide the image URL from a registry, the image can be built on-the-fly. However, this approach may result in errors if not executed correctly.
 
-### Modify the configuration file of nextflow (nextflow.config) to add e.g., runOptions and other options if necessary
+### Modify the Nextflow configuration file (nextflow.config) to add runOptions, along with any other necessary settings.
 
 Nextflow configuration file (/Controller/flowcraft/flowcraft/nextflow.config) can be configured for options such as cacheDir and runOptions as shown below:
 
@@ -232,7 +230,7 @@ you can dd with runoptions (---bind /path   as below:
         }
         
 ```
-This binding of path during run time is used to mount krakendb inside of the kraken2 container. It is also possile to have these data inside of the contaier. The updating of the datbase can be easy if we use the database outside of the container. Otherwise, contaner needs to be modified. 
+This runtime path binding is used to mount the krakendb inside the Kraken2 container. Alternatively, the database can be stored within the container itself. However, updating the database is easier when it is located outside the container; otherwise, the container must be modified to update the database.
 
 ### Create process templates files (.nf file) for new processes
 
@@ -311,8 +309,7 @@ process kraken2_innu_report_{{ pid }} {
 
 ### Create process class for new processes
 
-All new class definitions for new processes of INNUca  are defined here in metagenomics.py file. For example, class definition for kraken2 
-with fastq (reads data) file as input is shown below:
+All new class definitions for INNUca processes are located in the metagenomics.py file. For example, the class definition for Kraken2, which takes FASTQ (reads) files as input, is shown below:
 
 ```
 class Kraken2_innu(Process):
@@ -386,7 +383,9 @@ python3 /usr/local/lib/python3.6/dist-packages/flowcraft-1.4.2-py3.6.egg/flowcra
 
 ## Update InnuendoCLI database
 
-InnuendoCLI uses multiple databases. It is often necessary to update these databases as needed. For each database, there can be more than one way/source to update it.  Here are some examples of updating the databases. InnuendoCLI runs on containers and some container may have database inside of the containers. But it is good to have have a database outside of container so that we can update only database and not necessarily a software. 
+InnuendoCLI uses multiple databases that often need to be updated regularly. Each database may have multiple sources or methods for updating. Below are some examples of how to update these databases.
+
+Since InnuendoCLI runs within containers, some containers may include the databases internally. However, it is preferable to keep the databases outside the containers, allowing you to update the databases independently without having to modify or rebuild the software container.
 
 ** Note**: When you update the databases, make sure to update the databas version or download date to respective reports (e.g., logs and AMR reports)
 ### Resfinder: 
@@ -410,11 +409,8 @@ git clone https://git@bitbucket.org/genomicepidemiology/pointfinder_db.git
 singularity exec -B $PWD -B  /home/ubuntu /mnt/singularity_cache2/genomicepidemiology-resfinder-4.1.3.img bash
 python3 INSTALL.py
 ```
-
-
 ### Virulencefinder
 ```
-Ubuntu homefolder (in the ther place this command may not work due to some path issues but manual method can workfine:
 git clone https://bitbucket.org/genomicepidemiology/virulencefinder_db.git
 cd virulencefinder_db
 singularity exec -B $PWD -B /home/ubuntu  /mnt/singularity_cache2/genomicepidemiology-resfinder-4.1.3.img bash
@@ -479,16 +475,20 @@ Updating a new software means usually updating the container image of the softwa
  **Q4: How do you stop a running nextflow job on slurm cluster?**
 
  **A4**: As nextflow job that is running on cluster has several job steps, just cancelling a job step (scancel <job_id>) won't stop the whole
-     nextflow  job. One easy way to stop the job is to find the master nextflow process ID (PID) using  the following command:
-
-     ```
+     nextflow job. One easy way to stop the job is to find the master nextflow process ID (PID) using  the following command:
+     
+  ```
      cd /path/nextflow/submission/directory/   # move to the directory from where you have submitted job
      lsof .nextflow/cache/**/db/LOCK    # under cache directory ther should be folder name with hash number
-    ```
-     Above command should print PID of a running nextflow job among other column fields. Identiy the PID and kill the job as below:
-     ```
+  ```
+    
+   Above command should print PID of a running nextflow job among other column fields. Identiy the PID and kill the job as below:
+     
+  ```
+     
      kill <pid>
-     ```
+   ```
+     
  **Q5: ChewBBACA error: EOFError: Ran out of input or Filenotfound error**
 
  **A5**: Ran out of disk space where ChewBBACA databases are stored
