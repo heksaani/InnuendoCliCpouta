@@ -355,18 +355,6 @@ class Kraken2_innu(Process):
 
 ```
  For the definitions of all other classes, please check metagenomics.py file. 
- In the docker-compose version the following was done:
- ```
- # find / -name metagenomics.py 
- yes | cp metagenomics.py -rf /Controller/flowcraft/build/lib/flowcraft/generator/components/
- yes | cp metagenomics.py -rf /Controller/flowcraft/flowcraft/generator/components/
- yes | cp metagenomics.py -rf /usr/lib/python3.6/site-packages/flowcraft-1.4.0-py3.6.egg/flowcraft/generator/components/
- 
- ```
-*** please note *** that these class definitions can be added directly (instaead overriding the file) inside metagenomics.py file of INNUENDO platform in the production version to avoid loosing the existing class definitions. 
-
-
-
 
 One can also check work flows by properly adding all the necessary sofwtare tools along with fields as shown with some examples below:
 
