@@ -145,11 +145,11 @@ For the InnuendoCLI platform, there are a set of Workflow recipes that can be co
 
 The entire process of creating (or updating) InnuendoCLI with a new module involves editing (or even writing) several scripts inside of the platform. Main steps (not necessarily in the same order) are described below:
 
-- [Modify INNUENDO platform recipe file](#modify-innuendo-platform-recipe-file)
-- [Build singularity image for INNUca](#build-singularity-image-of-innuca)
-- [Modify the configuration file of nextflow (nextflow.config) to add e.g., runOptions and other  options if necessary](#modify-the-configuration-file-of-nextflow-nextflowconfig-to-add-eg-runoptions-and-other-options-if-necessary)
-- [Create process templates for new processes](#create-process-templates-files-for-new-processes)
-- [Create process class files for new processes](#create-process-class-for-new-processes)
+- Modify INNUENDO platform recipe file
+- Build singularity image for INNUca
+- Modify the configuration file of nextflow (nextflow.config) to add e.g., runOptions and other  options if necessary
+- Create process templates for new processes
+- Create process class files for new processes
 
 
 ### Modify InnuendoCLI platform recipe file 
