@@ -11,7 +11,7 @@
 ## Installation of InnuendoCLI platform
 ### Installation of Nextflow:
 Nextflow is a workflow manager that enables scalable and reproducible scientific workflows using software containers.
-An overview of how to install and its requirements, please refer to [official documentation](https://www.nextflow.io/docs/latest/index.html)
+An overview of how to install and its requirements, please refer to [official documentation](https://www.nextflow.io/docs/latest/index.html).
 However, you can run the following commands for basic installation:
 ```
 # Install Java (required for Nextflow)
@@ -40,7 +40,7 @@ nextflow -h
 
 ### Installation of flowcraft:
 
-In the InnuendoCLI platform, Flowcraft serves as the pipeline builder, generating workflows according to the defined protocols. For more details, please consult official [documentation](https://flowcraft.readthedocs.io/en/latest/?badge=latest)
+In the InnuendoCLI platform, Flowcraft serves as the pipeline builder, generating workflows according to the defined protocols. For more details, please consult official [documentation](https://flowcraft.readthedocs.io/en/latest/?badge=latest).
 
 ```
 # Install Miniconda (if not already installed)
@@ -132,7 +132,7 @@ For better organization, create a subfolder corresponding to each batch of sampl
    
 ## Updating a module in InnuendoCLI platform
 
-The InnuendoCLI platform provides a set of workflow recipes that can be assembled to run software on strain data in the correct order. It leverages [FlowCraft technology](https://github.com/assemblerflow/flowcraft) to dynamically build pipelines based on available modules. To use a new module on-the-fly, it must first be defined as a component within FlowCraft. InnuendoCLI includes its own recipe called innuendo, and you can view the available modules within this recipe using the following command:
+The InnuendoCLI platform provides a set of workflow recipes that can be assembled to run software on strain data in the correct order. It leverages [FlowCraft technology](https://github.com/assemblerflow/flowcraft) to dynamically build pipelines based on available modules. To use a new module on-the-fly, it must first be defined as a component within FlowCraft. InnuendoCLI includes its own recipe called *innuendo*, and you can view the available modules within this recipe using the following command:
 
 ```bash
 > flowcraft build -L # this should list all the available modules in  the flowcraft
@@ -387,7 +387,7 @@ InnuendoCLI uses multiple databases that often need to be updated regularly. Eac
 
 Since InnuendoCLI runs within containers, some containers may include the databases internally. However, it is preferable to keep the databases outside the containers, allowing you to update the databases independently without having to modify or rebuild the software container.
 
-** Note**: When you update the databases, make sure to update the databas version or download date to respective reports (e.g., logs and AMR reports)
+**Note**: When you update the databases, make sure to update the databas version or download date to respective reports (e.g., logs and AMR reports)
 ### Resfinder: 
 You can clone the latest versions of [Resfinder database]((https://git@bitbucket.org/genomicepidemiology/resfinder_db.git) from genomicepidemiology project as below:
 ```bash
@@ -428,7 +428,7 @@ python3 INSTALL.py kma_index
 
 ### MLST database
 
- The easiest way to update the MLST database is to use the existing MLST database and its compatible software from container registry.  The registry can for example be [Docker hub](https://hub.docker.com/). 
+ The easiest way to update the MLST database is to use the existing MLST database and its compatible software from container registry. TAn example of container registry is [Docker hub](https://hub.docker.com/). 
  
  ```bash
  singularity build ummidock-mlst-2.23.0.img docker://ummidock/mlst:v2.23.0
@@ -437,7 +437,7 @@ python3 INSTALL.py kma_index
  
 ### Updating a new software
 
-Updating a new software means usually updating the container image of the software and make sure that commands works fine the updated version of the software. 
+Updating a new software means usually updating the container image of the software. Once the software is updated, make sure that commands works fine. 
 
 ## Troubleshooting
 
