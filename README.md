@@ -101,7 +101,7 @@ different metadata fields and restrictons.
    # Check the folder with important files for saving. this folder is created once job is successfully finished.
    cd Final_results
    ```
-
+ **Note**: The field descriptions for metadata in the metadata file are case-sensitive and are predefined. Please refer to this [page](https://github.com/yetulaxman/InnuendoCliCpouta/tree/main/MetadataVocab) for more details
  - ### **Examining your reports**
     Reports are generated once your submitted job is successfully run. Under your own job directory (/mnt/thl_data/$USER/jobs/ or /mnt/rv_data/$USER/jobs),
     you can see the actual analysis results split into **results** and **reports** folders. The reports folder also contains the following summery files:
